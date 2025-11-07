@@ -276,3 +276,20 @@ body::before {
 #checkout-btn:hover {
     background: var(--btn-bg-hover);
 }
+
+.title-container {
+    padding: 80px 0 26px
+}
+
+.title {
+    font-family: "Press Start 2P";
+    font-size: 28px;
+    line-height: 1.25;
+    text-transform: uppercase;
+    text-shadow: 0 0 18px rgba(158, 252, 255, .35);
+}
+
+.title-sub {
+    margin-top: 12px;
+    color: var(--dim)
+}
