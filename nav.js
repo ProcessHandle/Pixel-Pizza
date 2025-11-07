@@ -13,7 +13,8 @@ navLinks = {
 for(i = 0; i<document.getElementsByClassName("nav-link").length; i++)
 {
     let item = document.getElementsByClassName("nav-link")[i];
-    item.onclick = navigate(item);
+    console.log(item);
+    item.onclick = () => {navigate(item)};
 }
 
 function navigate(item)
@@ -24,17 +25,18 @@ function navigate(item)
         if(navLinks[key] === item)
         {
             thisKey = key;
+            console.log(key)
         }
     })
 
     Object.keys(content).forEach(key => {
         if(key === thisKey)
         {
-            content[key].classList.add("hidden");
+            content[key].classList.remove("hidden");
         }
         else
         {
-            content[key].classList.remove("hidden");
+            content[key].classList.add("hidden");
         }
     })
     

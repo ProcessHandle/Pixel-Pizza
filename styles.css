@@ -40,6 +40,7 @@ body::before {
 
 .hidden {
     display: none;
+    content: none !important;
 }
 
 #sidebar {
@@ -59,16 +60,21 @@ body::before {
 }
 
 #login-sect {
-    height: 64px;
+    height: fit-content;
     width: 100%;
     border-bottom: 1px solid var(--divider);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
     padding: 0 16px;
     font-weight: 500;
     color: var(--glorange);
+}
+
+#login-msg {
+    display: inline-block;
 }
 
 #login-out-btn {
@@ -79,13 +85,31 @@ body::before {
     border-radius: 6px;
     cursor: pointer;
     transition: 0.25s ease;
-    margin: 0;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 0;
     flex-shrink: 0;
     margin-right: 25px;
 }
 
 #login-out-btn:hover {
     background: var(--btn-bg-hover);
+}
+
+#login-dropdown {
+    width: 100%;
+}
+
+#login-dropdown .row{
+    display: grid;
+    grid-template-columns: auto 66%;
+}
+
+input {
+    margin-top: auto;
+    max-height: 1.2em;
+    color: var(--glorange);
+    background-color: var(--bg-comp);
 }
 
 #nav-links {
