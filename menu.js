@@ -40,4 +40,10 @@ class MenuItem{
 
 }
 
-menuItems.push(new MenuItem("Example", "images/temp-pizza.png", "50", "This pizza is definitely appetizing and delicious"));
+menuItems.push(new MenuItem("Example 1", "images/temp-pizza.png", "50", "This pizza is definitely appetizing and delicious"));
+menuItems.push(new MenuItem("Example 2", "images/temp-pizza.png", "50", "This pizza is definitely appetizing and delicious"));
+menuItems.push(new MenuItem("Example 3", "images/temp-pizza.png", "50", "This pizza is definitely appetizing and delicious"));
+menuItems.push(new MenuItem("Example 4", "images/temp-pizza.png", "50", "This pizza is definitely appetizing and delicious"));
+menuItems.push(new MenuItem("Example 5", "images/temp-pizza.png", "50", "This pizza is definitely appetizing and delicious"));
+menuItems.push(new MenuItem("Example 6", "images/temp-pizza.png", "50", "This pizza is definitely appetizing and delicious"));
+menuItems.push(new MenuItem("Example 7", "images/temp-pizza.png", "50", "This pizza is definitely appetizing and delicious"));
