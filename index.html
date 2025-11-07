@@ -14,7 +14,44 @@
 <body>
     <div id="sidebar">
         <div id="login-sect">
-            <span id="login-msg">Logged Out</span>
+            <div id="login-msg">Logged Out</div>
+            <button class="ci-remove dropdown-form hidden" style="margin-right: 25px;">✕</button>
+            <div id="login-dropdown" class="dropdown-form hidden">
+                <div id="login-container" class="">
+                    <form action="">
+                        <div class="row">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email">
+                        </div>
+                        <div class="row">
+                            <label for="pass">Password:</label>
+                            <input type="text" name="pass">
+                        </div>
+
+                    </form>
+                </div>
+                <div id="register-container" class="hidden">
+                    <form action="">
+                        <div class="row">
+                            <label for="name">Name:</label>
+                            <input type="text" name="name">
+                        </div>
+                        <div class="row">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email">
+                        </div>
+                        <div class="row">
+                            <label for="pass">Password:</label>
+                            <input type="text" name="pass">
+                        </div>
+                        <div class="row">
+                            <label for="conf-pass">Confirm Password:</label>
+                            <input type="text" name="conf-pass">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
             <button id="login-out-btn">Login</button>
         </div>
         <div id="nav-links">
@@ -141,4 +178,5 @@
     });
 </script>
 
+<script src="login.js"></script>
 </html>
