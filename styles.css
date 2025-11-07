@@ -1,6 +1,18 @@
 :root {
     --bg: #0b0c10;
+    --bg-comp: #1a1c23;
+    --trp-bg: rgba(11, 12, 16, 0.25);
     --ink: #e9edf1;
+    --dim: #a9b1bb;
+    --divider: rgba(216, 110, 4, 0.35);
+    --glorange: #ffb54a;
+    --glorange-soft: rgba(255, 181, 74, 0.18);
+    --btn-bg: rgba(255, 181, 74, 0.12);
+    --btn-bg-hover: rgba(255, 181, 74, 0.25);
+    --card-line: rgba(255, 255, 255, 0.06);
+    --card-line-soft: rgba(255, 255, 255, 0.03);
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --checkout-bord: rgba(255, 181, 74, 0.35);
 }
 
 body {
@@ -19,13 +31,265 @@ body::before {
     inset: 0;
     z-index: -2;
     background:
-        radial-gradient(1200px 700px at 20% -10%, rgba(255, 159, 159, 0.18), transparent 55%),
-        radial-gradient(1200px 700px at 80% 110%, rgba(216, 110, 4, 0.12), transparent 50%),
-        radial-gradient(circle at 1px 1px, rgba(245, 107, 44, 0.06) 1px, transparent 1px);
+        radial-gradient(1200px 700px at 20% -10%, rgba(255, 159, 159, 0.2), transparent 50%),
+        radial-gradient(1200px 700px at 80% 110%, rgba(216, 110, 4, 0.15), transparent 60%),
+        radial-gradient(circle at 1px 1px, rgba(245, 107, 44, 0.15) 1px, transparent 1px);
     background-size: auto, auto, 18px 18px;
-    filter: contrast(100%);
+    filter: contrast(90%);
 }
 
 .hidden {
-    display: hidden;
+    display: none;
+}
+
+#sidebar {
+    width: 260px;
+    height: 100vh;
+    background: var(--trp-bg);
+    border-left: 1px solid var(--divider);
+    backdrop-filter: blur(6px) saturate(200%);
+    -webkit-backdrop-filter: blur(6px) saturate(200%);
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    user-select: none;
+}
+
+#login-sect {
+    height: 64px;
+    width: 100%;
+    border-bottom: 1px solid var(--divider);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 16px;
+    font-weight: 500;
+    color: var(--glorange);
+}
+
+#login-out-btn {
+    background: var(--btn-bg);
+    border: 1px solid var(--checkout-bord);
+    color: var(--glorange);
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    margin: 0;
+    flex-shrink: 0;
+    margin-right: 25px;
+}
+
+#login-out-btn:hover {
+    background: var(--btn-bg-hover);
+}
+
+#nav-links {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--divider);
+}
+
+#nav-links a {
+    padding: 10px 0;
+    cursor: pointer;
+    color: var(--ink);
+    font-size: 15px;
+    transition: .25s;
+    border-bottom: 1px solid transparent;
+}
+
+#nav-links a:hover {
+    color: var(--glorange);
+    border-bottom: 1px solid var(--divider);
+}
+
+#cart-section {
+    flex: 1;
+    padding: 10px 18px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.cart-title {
+    margin: 6px 0 10px;
+    font-size: 14px;
+    color: var(--dim);
+    border-bottom: 1px solid var(--divider);
+    padding-bottom: 6px;
+}
+
+#cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-x: hidden;
+}
+
+.cart-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--card-line);
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.thumb {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-soft);
+    background:
+        repeating-linear-gradient(0deg, var(--glorange-soft) 0 2px, transparent 2px 6px),
+        repeating-linear-gradient(90deg, var(--glorange-soft) 0 2px, transparent 2px 6px),
+        radial-gradient(120px 80px at 30% 20%, rgba(216, 110, 4, .12), transparent 60%);
+}
+
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+    opacity: .95;
+}
+
+.ci-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-x: hidden;
+}
+
+.ci-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ci-name {
+    font-weight: 600;
+}
+
+.ci-remove {
+    background: transparent;
+    border: 1px solid var(--divider);
+    color: var(--dim);
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .2s;
+    flex-shrink: 0;
+}
+
+.ci-remove:hover {
+    background: var(--glorange-soft);
+    color: var(--glorange);
+}
+
+.ci-price-line {
+    color: var(--dim);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.ci-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card-line-soft);
+    border: 1px solid var(--card-line);
+    border-radius: 8px;
+    padding: 4px;
+    flex-shrink: 0;
+}
+
+.qbtn {
+    width: 28px;
+    height: 28px;
+    background: var(--btn-bg);
+    border: 1px solid var(--border-soft);
+    color: var(--glorange);
+    border-radius: 6px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.qbtn:hover {
+    background: var(--btn-bg-hover);
+}
+
+.qval {
+    width: 44px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--ink);
+    font-weight: 600;
+}
+
+#checkout-footer {
+    border-top: 1px solid var(--divider);
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--bg-comp);
+}
+
+#cart-total {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#checkout-btn {
+    background: var(--btn-bg);
+    border: 1px solid var(--checkout-bord);
+    color: var(--glorange);
+    padding: 10px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+#checkout-btn:hover {
+    background: var(--btn-bg-hover);
+}
+
+.title-container {
+    padding: 80px 0 26px
+}
+
+.title {
+    font-family: "Press Start 2P";
+    font-size: 28px;
+    line-height: 1.25;
+    text-transform: uppercase;
+    text-shadow: 0 0 18px rgba(158, 252, 255, .35);
+}
+
+.title-sub {
+    margin-top: 12px;
+    color: var(--dim)
 }

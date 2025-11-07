@@ -1,19 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
 </head>
+
 <body>
     <div id="sidebar">
+        <div id="login-sect">
+            <span id="login-msg">Logged Out</span>
+            <button id="login-out-btn">Login</button>
+        </div>
+        <div id="nav-links">
+            <a id="nav-home" class="nav-link">Home</a>
+            <a id="nav-menu" class="nav-link">Menu</a>
+            <a id="nav-about" class="nav-link">About</a>
+            <a id="nav-home" class="nav-link">Cart</a>
+        </div>
+        <div id="cart-section">
+            <p class="cart-title">Cart</p>
+            <div id="cart-items">
+                <div class="cart-item" data-price="4.00">
+                    <div class="thumb">
+                        <img src="https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png"
+                            alt="Item">
+                    </div>
+                    <div class="ci-main">
+                        <div class="ci-title-row">
+                            <span class="ci-name">Pepperoni Slice</span>
+                            <button class="ci-remove">✕</button>
+                        </div>
+                        <span class="ci-price-line">$4.00</span>
+                        <div class="ci-bottom">
+                            <div class="qty">
+                                <button class="qbtn minus">−</button>
+                                <input class="qval" type="number" min="1" value="1">
+                                <button class="qbtn plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="checkout-footer">
+            <div id="cart-total">Total: $0.00</div>
+            <button id="checkout-btn">Checkout</button>
+        </div>
 
     </div>
-    <div id="home-content" class="hidden">
+
+    <div id="home-content">
         <div class="row">
-            <div id="logo-container">
-                <div id="logo"></div>
+            <div id="title-container">
+                <h1 class="title">GAME ON. GRAB YOUR SLICE.</h1>
+                <p class="title-sub">Retro vibes, modern pies. Power up your order.</p>
             </div>
         </div>
         <div class="row">
@@ -36,7 +83,7 @@
             </div>
         </div>
     </div>
-    <div id="menu-content" class="">
+    <div id="menu-content" class="hidden">
 
     </div>
     <div id="about-content" class="hidden">
