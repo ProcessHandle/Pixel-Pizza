@@ -114,7 +114,7 @@ body::before {
     /* width controlledin login.js */
 }
 
-#login-dropdown .row{
+#login-dropdown form .row{
     display: grid;
     grid-template-columns: auto 66%;
 }
@@ -124,6 +124,19 @@ input {
     max-height: 1.2em;
     color: var(--glorange);
     background-color: var(--bg-comp);
+}
+
+a {
+    color: var(--glorange);
+}
+
+a span {
+    color: var(--title-grad-end);
+    text-decoration: underline;
+}
+
+#register-link {
+    margin-top: 20px;
 }
 
 #nav-links {
