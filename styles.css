@@ -6,7 +6,8 @@
     --dim: #a9b1bb;
     --divider: rgba(216, 110, 4, 0.35);
     --glorange: #ffb54a;
-    --glorange-soft: rgba(255, 181, 74, 0.18);
+    --glorange-off: #986c2f;
+    --glorange-soft: rgba(43, 42, 42, 0.18);
     --btn-bg: rgba(255, 181, 74, 0.12);
     --btn-bg-hover: rgba(255, 181, 74, 0.25);
     --card-line: rgba(255, 255, 255, 0.06);
@@ -16,6 +17,7 @@
     --title-grad-start: #ffb54a;
     --title-grad-end: #ff7b0a;
 }
+
 
 body {
     margin: 0;
@@ -102,7 +104,7 @@ body::before {
     width: 100%;
 }
 
-#login-dropdown .row{
+#login-dropdown .row {
     display: grid;
     grid-template-columns: auto 66%;
 }
@@ -333,6 +335,14 @@ input {
 
 #logo {
     height: 120px;
+    transition: transform 0.25s ease, transform 0.35s ease, filter 0.35s ease;
+    transform-style: preserve-3d;
+    user-select: none;
+}
+
+#logo:hover {
+    transform: rotateX(-15deg) rotateY(15deg) scale(1.1);
+    filter: blur(0.3px);
 }
 
 .title-sub {
@@ -345,28 +355,33 @@ input {
 
 #menu-content {
     margin-right: 260px;
-    padding: 80px 60px;
+    padding: 80px clamp(24px, 5vw, 60px);
     width: calc(100% - 260px);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 20px;
     justify-items: center;
     align-content: start;
     box-sizing: border-box;
 }
 
-
-
 .card {
     background: var(--bg-comp);
     border: 1px solid var(--divider);
     border-radius: 10px;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    grid-template-areas:
+        "img title"
+        "img info";
+    align-items: center;
+    gap: 12px 24px;
     transition: .25s ease;
     user-select: none;
+    min-height: 210px;
+    box-sizing: border-box;
+    perspective: 800px;
 }
 
 .card:hover {
@@ -375,31 +390,111 @@ input {
     transform: translateY(-4px);
 }
 
+.card img {
+    grid-area: img;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--card-line);
+    background:
+        repeating-linear-gradient(0deg, var(--glorange-soft) 0 2px, transparent 2px 6px),
+        repeating-linear-gradient(90deg, var(--glorange-soft) 0 2px, transparent 2px 6px),
+        radial-gradient(160px 100px at 30% 20%, rgba(216, 110, 4, .12), transparent 60%);
+    object-fit: contain;
+    transition: transform 0.25s ease, transform 0.35s ease, filter 0.35s ease;
+    transform-style: preserve-3d;
+
+}
+
+.card:hover img {
+    transform: rotateX(-12deg) rotateY(12deg) scale(1.01);
+    filter: blur(0.5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+}
+
+
 .card h2 {
+    grid-area: title;
+    margin: 0 0 4px 0;
     font-family: "Press Start 2P";
     font-size: 14px;
-    line-height: 1.4;
-    margin-bottom: 12px;
+    line-height: 1.3;
     text-transform: uppercase;
     background: linear-gradient(90deg, var(--title-grad-start), var(--title-grad-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.card:hover h2,
+.card:hover .card-info {
+    transform: translateY(-5px);
 }
 
 .card-info {
-    display: flex;
+    grid-area: info;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "price price"
+        "qty   qty"
+        "btn   btn";
+    row-gap: 10px;
     align-items: center;
-    justify-content: space-between;
+    transition: transform 0.3s ease;
 }
 
 .card-price {
-    color: var(--glorange);
+    grid-area: price;
+    color: var(--dim);
     font-weight: 700;
-    font-size: 18px;
+    font-size: 14px;
     margin: 0;
+    text-align: center;
+}
+
+.card .qty {
+    grid-area: qty;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card-line-soft);
+    border: 1px solid var(--card-line);
+    border-radius: 8px;
+    padding: 4px;
+    flex-shrink: 0;
+}
+
+.card .qbtn {
+    width: 28px;
+    height: 28px;
+    background: var(--btn-bg);
+    border: 1px solid var(--border-soft);
+    color: var(--glorange);
+    border-radius: 6px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.card .qbtn:hover {
+    background: var(--btn-bg-hover);
+}
+
+.card .qval {
+    width: 44px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--ink);
+    font-weight: 600;
 }
 
 .add-cart-btn {
+    grid-area: btn;
     background: var(--btn-bg);
     border: 1px solid var(--checkout-bord);
     color: var(--glorange);
@@ -407,17 +502,11 @@ input {
     border-radius: 6px;
     font-size: 13px;
     cursor: pointer;
-    transition: .25s ease;
+    transition: 0.25s ease;
 }
 
 .add-cart-btn:hover {
     background: var(--btn-bg-hover);
-}
-
-
-.card h2,
-p {
-    margin: 20px 20px;
 }
 
 input::-webkit-outer-spin-button,
