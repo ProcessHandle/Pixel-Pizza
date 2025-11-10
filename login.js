@@ -67,6 +67,10 @@ function toggleRegister()
 }
 
 function animateHeight(timestamp, lastTimestamp) {
+    /*
+    CSS animation doesnt work unless height is defined in CSS
+    So dropdown is animated here to be dynamic based on content height.
+    */
 
     //possible add ease-in-ease-out math later
     let loginHeight = Number(loginContainer.scrollHeight);
