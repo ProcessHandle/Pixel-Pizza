@@ -14,7 +14,44 @@
 <body>
     <div id="sidebar">
         <div id="login-sect">
-            <span id="login-msg">Logged Out</span>
+            <div id="login-msg">Logged Out</div>
+            <button class="ci-remove dropdown-form hidden" style="margin-right: 25px;">✕</button>
+            <div id="login-dropdown" class="dropdown-form hidden">
+                <div id="login-container" class="">
+                    <form action="">
+                        <div class="row">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email">
+                        </div>
+                        <div class="row">
+                            <label for="pass">Password:</label>
+                            <input type="text" name="pass">
+                        </div>
+
+                    </form>
+                </div>
+                <div id="register-container" class="hidden">
+                    <form action="">
+                        <div class="row">
+                            <label for="name">Name:</label>
+                            <input type="text" name="name">
+                        </div>
+                        <div class="row">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email">
+                        </div>
+                        <div class="row">
+                            <label for="pass">Password:</label>
+                            <input type="text" name="pass">
+                        </div>
+                        <div class="row">
+                            <label for="conf-pass">Confirm Password:</label>
+                            <input type="text" name="conf-pass">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
             <button id="login-out-btn">Login</button>
         </div>
         <div id="nav-links">
@@ -106,40 +143,8 @@
 </body>
 <script src="menu.js"></script>
 <script src="nav.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const el = document.getElementById("hero-title");
-        const slogans = [
-            "GAME ON. GRAB YOUR SLICE."
-        ];
+<script src="style.js"></script>
+<script src="login.js"></script>
 
-        let i = 0;
-        let j = 0;
-        let deleting = false;
-
-        function cur() {
-            const curr = slogans[i];
-            const vis = curr.slice(0, j);
-            el.textContent = vis;
-
-            if (!deleting && j < curr.length) {
-                j++;
-                setTimeout(cur, 65);
-            }
-            else if (deleting && j > 0) {
-                j--;
-                setTimeout(cur, 45);
-            }
-            else {
-                deleting = !deleting;
-                if (!deleting) {
-                    i = (i + 1) % slogans.length;
-                }
-                setTimeout(cur, deleting ? 1400 : 800);
-            }
-        }
-        cur();
-    });
-</script>
 
 </html>
