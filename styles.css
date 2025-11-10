@@ -303,6 +303,8 @@ body::before {
     letter-spacing: .2px;
     animation: pulsate 5s infinite ease-in-out;
     user-select: none;
+    min-height: 1.25em;
+    white-space: nowrap;
 }
 
 #logo {
@@ -318,15 +320,17 @@ body::before {
 }
 
 #menu-content {
+    margin-right: 260px;
+    padding: 80px 60px;
     width: calc(100% - 260px);
-    padding: 80px 40px;
-    margin-left: auto; 
-    margin-right: 260px;   
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 28px;
-    justify-items: center;  
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 32px;
+    justify-items: center;
+    align-content: start;
     box-sizing: border-box;
 }
+
 
 
 .card {
@@ -421,14 +425,15 @@ input[type="number"] {
 }
 
 #home-content,
-#menu-content,
 #about-content,
 #history-content,
 #edit-menu-content,
 #sales-data-content {
-    padding-right: 260px; 
+    margin-right: 260px;
+    padding: 0 60px 80px;
     box-sizing: border-box;
 }
+
 
 html::-webkit-scrollbar {
     width: 2px;
