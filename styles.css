@@ -70,9 +70,10 @@ body::before {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 0 16px;
+    padding: 6px 16px;
     font-weight: 500;
     color: var(--glorange);
+    transition: height .8s ease-in-out;
 }
 
 #login-msg {
@@ -99,7 +100,18 @@ body::before {
 }
 
 #login-dropdown {
-    width: 100%;
+    overflow: hidden;
+    /* transition: height .8s ease-in-out, width 0s ease 0.2s; */
+}
+
+#login-dropdown.open {
+    /* height controlled in login.js */
+    /* width controlled in login.js */
+}
+
+#login-dropdown.closed {
+    /* height controlled in login.js */
+    /* width controlledin login.js */
 }
 
 #login-dropdown .row{
