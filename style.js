@@ -1,32 +1,33 @@
     document.addEventListener("DOMContentLoaded", () => {
-        const el = document.getElementById("hero-title")
-        const text = el.textContent.trim()
-        let i = 0
-        let deleting = false
+        const el = document.getElementById("hero-title");
+        const slogans = [
+            "GAME ON. GRAB YOUR SLICE."
+        ];
+
+        let i = 0;
+        let j = 0;
+        let deleting = false;
 
         function cur() {
-            let visible = text.slice(0, i)
-            let blanks = " ".repeat(text.length - i)
-            el.textContent = visible + blanks
+            const curr = slogans[i];
+            const vis = curr.slice(0, j);
+            el.textContent = vis;
 
-            if (!deleting) {
-                i++
-                if (i === text.length) {
-                    deleting = true
-                    setTimeout(cur, 1500)
-                    return
-                }
-            } else {
-                i--
-                if (i === 0) {
-                    deleting = false
-                    setTimeout(cur, 600)
-                    return
-                }
+            if (!deleting && j < curr.length) {
+                j++;
+                setTimeout(cur, 65);
             }
-
-            setTimeout(cur, deleting ? 45 : 65)
+            else if (deleting && j > 0) {
+                j--;
+                setTimeout(cur, 45);
+            }
+            else {
+                deleting = !deleting;
+                if (!deleting) {
+                    i = (i + 1) % slogans.length;
+                }
+                setTimeout(cur, deleting ? 1400 : 800);
+            }
         }
-
-        cur()
+        cur();
     });
