@@ -6,6 +6,8 @@
   --dim: #a9b1bb;
   --divider: rgba(216, 110, 4, 0.35);
   --glorange: #ffb54a;
+  --card-img-bg-grid: #30303029;
+  --card-img-border: #372e21;
   --btn-bg: rgba(255, 181, 74, 0.12);
   --btn-bg-hover: rgba(255, 181, 74, 0.25);
   --border-soft: rgba(255, 255, 255, 0.08);
@@ -478,10 +480,10 @@ a span {
     width: 100%;
     height: auto;
     border-radius: 10px;
-    border: 1px solid var(--card-line);
+    border: 1px solid var(--card-img-border);
     background:
-        repeating-linear-gradient(0deg, var(--glorange-soft) 0 2px, transparent 2px 6px),
-        repeating-linear-gradient(90deg, var(--glorange-soft) 0 2px, transparent 2px 6px),
+        repeating-linear-gradient(0deg, var(--card-img-bg-grid) 0 2px, transparent 2px 6px),
+        repeating-linear-gradient(90deg, var(--card-img-bg-grid) 0 2px, transparent 2px 6px),
         radial-gradient(160px 100px at 30% 20%, rgba(216, 110, 4, .12), transparent 60%);
     object-fit: contain;
     transition: transform 0.25s ease, transform 0.35s ease, filter 0.35s ease;
@@ -625,6 +627,7 @@ input[type="number"] {
 #history-content,
 #edit-menu-content,
 #sales-data-content {
+    height: 100%;
     margin-right: 260px;
     padding: 0 60px 80px;
     box-sizing: border-box;
