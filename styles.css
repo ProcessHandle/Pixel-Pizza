@@ -1,45 +1,100 @@
 :root {
-    --bg: #0b0c10;
-    --bg-comp: #1a1c23;
-    --trp-bg: rgba(11, 12, 16, 0.25);
-    --ink: #e9edf1;
-    --dim: #a9b1bb;
-    --divider: rgba(216, 110, 4, 0.35);
-    --glorange: #ffb54a;
-    --glorange-off: #986c2f;
-    --glorange-soft: rgba(43, 42, 42, 0.18);
-    --btn-bg: rgba(255, 181, 74, 0.12);
-    --btn-bg-hover: rgba(255, 181, 74, 0.25);
-    --card-line: rgba(255, 255, 255, 0.06);
-    --card-line-soft: rgba(255, 255, 255, 0.03);
-    --border-soft: rgba(255, 255, 255, 0.08);
-    --checkout-bord: rgba(255, 181, 74, 0.35);
-    --title-grad-start: #ffb54a;
-    --title-grad-end: #ff7b0a;
+  --bg: #000;
+  --bg-comp: #1a1c23;
+  --trp-bg: rgba(11, 12, 16, 0.25);
+  --ink: #e9edf1;
+  --dim: #a9b1bb;
+  --divider: rgba(216, 110, 4, 0.35);
+  --glorange: #ffb54a;
+  --btn-bg: rgba(255, 181, 74, 0.12);
+  --btn-bg-hover: rgba(255, 181, 74, 0.25);
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --checkout-bord: rgba(255, 181, 74, 0.35);
+  --title-grad-start: #ffb54a;
+  --title-grad-end: #ff7b0a;
+  --grid: 10rem;
 }
-
 
 body {
-    margin: 0;
-    color: var(--ink);
-    background: var(--bg);
-    font: 400 16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-    letter-spacing: .1px;
-    overflow-x: hidden;
-    position: relative;
+  margin: 0;
+  color: var(--ink);
+  background: var(--bg);
+  font: 400 16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  letter-spacing: .1px;
+  overflow-x: hidden;
+  position: relative;
+  will-change: transform;
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    background:
-        radial-gradient(1200px 700px at 20% -10%, rgba(255, 159, 159, 0.2), transparent 50%),
-        radial-gradient(1200px 700px at 80% 110%, rgba(216, 110, 4, 0.15), transparent 60%),
-        radial-gradient(circle at 1px 1px, rgba(245, 107, 44, 0.15) 1px, transparent 1px);
-    background-size: auto, auto, 18px 18px;
-    filter: contrast(90%);
+.grid-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  inset: 0;
+  perspective: 100rem;
+  z-index: -3;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.plane {
+  --dir: 1;
+  width: 300%;
+  height: 150%;
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%) rotateX(85deg);
+  transform-origin: bottom center;
+  will-change: transform;
+  contain: layout paint;
+}
+
+.plane:last-child {
+  --dir: -1;
+  top: 0;
+  transform: translateX(-50%) rotateX(-85deg);
+  transform-origin: top center;
+}
+
+.grid::before,
+.grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+
+.grid::before {
+  background-image:
+    repeating-linear-gradient(to left, var(--glorange) 0 2px, transparent 2px var(--grid)),
+    repeating-linear-gradient(to bottom, var(--glorange) 0 2px, transparent 2px var(--grid));
+  opacity: 0.25;
+  animation: move 1.2s linear infinite;
+}
+
+.grid::after {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) var(--grid), rgba(0, 0, 0, 0));
+  transform: translateZ(0);
+}
+
+.plane:last-child .grid::after {
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 1) var(--grid), rgba(0, 0, 0, 0));
+}
+
+.glow {
+  filter: blur(1.5rem);
+  mix-blend-mode: plus-lighter;
+  opacity: 0.12;
+  will-change: filter, opacity;
+}
+
+@keyframes move {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--grid) * var(--dir)));
+  }
 }
 
 .hidden {
@@ -116,7 +171,7 @@ body::before {
     /* width controlledin login.js */
 }
 
-#login-dropdown form .row{
+#login-dropdown form .row {
     display: grid;
     grid-template-columns: auto 66%;
 }
@@ -133,8 +188,10 @@ a {
 }
 
 a span {
-    color: var(--title-grad-end);
-    text-decoration: underline;
+    background: linear-gradient(-90deg, var(--title-grad-start), var(--title-grad-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
 }
 
 #register-link {
@@ -383,8 +440,8 @@ a span {
     padding: 80px clamp(24px, 5vw, 60px);
     width: calc(100% - 260px);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
     justify-items: center;
     align-content: start;
     box-sizing: border-box;
@@ -407,6 +464,7 @@ a span {
     min-height: 210px;
     box-sizing: border-box;
     perspective: 800px;
+    max-width: 400px;
 }
 
 .card:hover {
@@ -585,4 +643,16 @@ html::-webkit-scrollbar-thumb {
 
 html::-webkit-scrollbar-track {
     background-color: var(--bg-comp);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid::before {
+    animation: none;
+  }
+  .grid-container {
+    perspective: none;
+  }
+  .plane {
+    transform: none;
+  }
 }

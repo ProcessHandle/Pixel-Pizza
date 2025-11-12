@@ -12,10 +12,22 @@
 </head>
 
 <body>
+    <div class="grid-container">
+        <div class="plane">
+            <div class="grid"></div>
+            <div class="glow"></div>
+        </div>
+        <div class="plane">
+            <div class="grid"></div>
+            <div class="glow"></div>
+        </div>
+    </div>
+
     <div id="sidebar">
         <div id="login-sect">
             <div id="login-msg">Logged Out</div>
-            <button id="login-close-btn" class="ci-remove dropdown-form hidden" style="margin-right: 25px;" onclick="toggleDropdown()">✕</button>
+            <button id="login-close-btn" class="ci-remove dropdown-form hidden" style="margin-right: 25px;"
+                onclick="toggleDropdown()">✕</button>
             <div id="login-dropdown" class="dropdown-form closed">
                 <div id="login-container" class="">
                     <form action="">
@@ -51,8 +63,8 @@
                     </form>
                 </div>
                 <div id="register-link" class="row">
-                        <a onclick="toggleRegister()">New Player? <span>Create Account.</span></a>
-                    </div>
+                    <a onclick="toggleRegister()">New Player? <span>Create Account.</span></a>
+                </div>
             </div>
             <button id="login-out-btn" onclick="login()">Login</button>
         </div>

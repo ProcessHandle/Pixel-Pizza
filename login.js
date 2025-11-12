@@ -9,58 +9,45 @@ let loginButton = document.getElementById("login-out-btn");
 let animationLength = 400;
 let startHeight = 0;
 
-if(loginDropdown.classList.contains("closed"))
-{
+if (loginDropdown.classList.contains("closed")) {
     loginDropdown.style.height = "0px";
     loginDropdown.style.width = "0";
     startHeight = getCurrentHeight(loginDropdown);
 }
 
-
-
-function login()
-{
-    if(loginDropdown.classList.contains("closed"))
-    {
+function login() {
+    if (loginDropdown.classList.contains("closed")) {
         toggleDropdown()
     }
-    else if(!loginContainer.classList.contains("hidden"))
-    {
+    else if (!loginContainer.classList.contains("hidden")) {
         //login logic goes here
     }
-    else if(!registerContainer.classList.contains("hidden"))
-    {
+    else if (!registerContainer.classList.contains("hidden")) {
         //register logic goes here
     }
 }
 
-function toggleDropdown()
-{
-    if(loginDropdown.classList.contains("closed"))
-    {
+function toggleDropdown() {
+    if (loginDropdown.classList.contains("closed")) {
         loginDropdown.classList.replace("closed", "open");
         closeButton.classList.remove("hidden");
-        requestAnimationFrame(function(timestamp) {animateHeight(timestamp, timestamp)});
+        requestAnimationFrame(function (timestamp) { animateHeight(timestamp, timestamp) });
     }
-    else
-    {
+    else {
         loginDropdown.classList.replace("open", "closed");
         closeButton.classList.add("hidden")
-        requestAnimationFrame(function(timestamp) {animateHeight(timestamp, timestamp)});
+        requestAnimationFrame(function (timestamp) { animateHeight(timestamp, timestamp) });
     }
 }
 
-function toggleRegister()
-{
+function toggleRegister() {
     console.log("toggleRegister()")
-    if(loginContainer.classList.contains("hidden"))
-    {
+    if (loginContainer.classList.contains("hidden")) {
         console.log("show login, hide register");
         loginContainer.classList.remove("hidden");
         registerContainer.classList.add("hidden");
     }
-    else
-    {
+    else {
         console.log("hide login, show register")
         loginContainer.classList.add("hidden");
         registerContainer.classList.remove("hidden");
@@ -118,18 +105,15 @@ function animateHeight(timestamp, lastTimestamp) {
     }
 }
 
-function getCurrentHeight(element)
-{
+function getCurrentHeight(element) {
     let topMargin = 0;
-    if(element.style.topMargin !== undefined)
-    {
-        topMargin = Number(element.style.topMargin.replace("px",""));
+    if (element.style.topMargin !== undefined) {
+        topMargin = Number(element.style.topMargin.replace("px", ""));
     }
-    
+
     let bottomMargin = 0;
-    if(element.style.bottomMargin !== undefined)
-    {
-        bottomMargin = Number(element.style.bottomMargin.replace("px",""));
+    if (element.style.bottomMargin !== undefined) {
+        bottomMargin = Number(element.style.bottomMargin.replace("px", ""));
     }
 
     return Number(element.getBoundingClientRect().height) + topMargin + bottomMargin;

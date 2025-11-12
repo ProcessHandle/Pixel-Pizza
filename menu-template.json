@@ -1,0 +1,46 @@
+{
+  "menuItems": [
+    {
+      "title": "Example 1",
+      "image": "images/temp-pizza.png",
+      "price": "50.00",
+      "description": "This pizza is definitely appetizing and delicious"
+    },
+    {
+      "title": "Example 2",
+      "image": "images/temp-pizza.png",
+      "price": "50.00",
+      "description": "This pizza is definitely appetizing and delicious"
+    },
+    {
+      "title": "Example 3",
+      "image": "images/temp-pizza.png",
+      "price": "50.00",
+      "description": "This pizza is definitely appetizing and delicious"
+    },
+    {
+      "title": "Example 4",
+      "image": "images/temp-pizza.png",
+      "price": "50.00",
+      "description": "This pizza is definitely appetizing and delicious"
+    },
+    {
+      "title": "Example 5",
+      "image": "images/temp-pizza.png",
+      "price": "50.00",
+      "description": "This pizza is definitely appetizing and delicious"
+    },
+    {
+      "title": "Example 6",
+      "image": "images/temp-pizza.png",
+      "price": "50.00",
+      "description": "This pizza is definitely appetizing and delicious"
+    },
+    {
+      "title": "Example 7",
+      "image": "images/temp-pizza.png",
+      "price": "500.00",
+      "description": "This pizza is definitely appetizing and delicious"
+    }
+  ]
+}
