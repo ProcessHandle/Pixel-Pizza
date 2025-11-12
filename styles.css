@@ -25,7 +25,6 @@ body {
   letter-spacing: .1px;
   overflow-x: hidden;
   position: relative;
-  will-change: transform;
 }
 
 .grid-container {
@@ -442,7 +441,7 @@ a span {
     padding: 80px clamp(24px, 5vw, 60px);
     width: calc(100% - 260px);
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(max(240px,30%), 1fr));
     gap: 24px;
     justify-items: center;
     align-content: start;
@@ -455,7 +454,7 @@ a span {
     border-radius: 10px;
     padding: 20px 24px;
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: auto 1fr;
     grid-template-areas:
         "img title"
         "img info";
@@ -477,7 +476,7 @@ a span {
 
 .card img {
     grid-area: img;
-    width: 100%;
+    width: clamp(75px, 100%, 220px);
     height: auto;
     border-radius: 10px;
     border: 1px solid var(--card-img-border);
