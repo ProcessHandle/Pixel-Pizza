@@ -1,5 +1,5 @@
 content = {
-    home:document.getElementById("menu-content"),
+    home:document.getElementById("home-content"),
     menu:document.getElementById("menu-content") ,
     about:document.getElementById("about-content")
 }
