@@ -63,7 +63,7 @@ function animateHeight(timestamp, lastTimestamp) {
 
     //possible add ease-in-ease-out math later
 
-    let targetHeight = 0
+    let targetHeight = 0;
 
     let childElements = loginDropdown.children;
 
