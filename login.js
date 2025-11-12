@@ -9,56 +9,45 @@ let loginButton = document.getElementById("login-out-btn");
 let animationLength = 400;
 let currentHeight = 0;
 
-if(loginDropdown.classList.contains("closed"))
-{
+if (loginDropdown.classList.contains("closed")) {
     loginDropdown.style.height = "0px";
     loginDropdown.style.width = "0";
     currentHeight = getCurrentHeight(loginDropdown);
 }
 
-function login()
-{
-    if(loginDropdown.classList.contains("closed"))
-    {
+function login() {
+    if (loginDropdown.classList.contains("closed")) {
         toggleDropdown()
     }
-    else if(!loginContainer.classList.contains("hidden"))
-    {
+    else if (!loginContainer.classList.contains("hidden")) {
         //login logic goes here
     }
-    else if(!registerContainer.classList.contains("hidden"))
-    {
+    else if (!registerContainer.classList.contains("hidden")) {
         //register logic goes here
     }
 }
 
-function toggleDropdown()
-{
-    if(loginDropdown.classList.contains("closed"))
-    {
+function toggleDropdown() {
+    if (loginDropdown.classList.contains("closed")) {
         loginDropdown.classList.replace("closed", "open");
         closeButton.classList.remove("hidden");
-        requestAnimationFrame(function(timestamp) {animateHeight(timestamp, timestamp)});
+        requestAnimationFrame(function (timestamp) { animateHeight(timestamp, timestamp) });
     }
-    else
-    {
+    else {
         loginDropdown.classList.replace("open", "closed");
         closeButton.classList.add("hidden")
-        requestAnimationFrame(function(timestamp) {animateHeight(timestamp, timestamp)});
+        requestAnimationFrame(function (timestamp) { animateHeight(timestamp, timestamp) });
     }
 }
 
-function toggleRegister()
-{
+function toggleRegister() {
     console.log("toggleRegister()")
-    if(loginContainer.classList.contains("hidden"))
-    {
+    if (loginContainer.classList.contains("hidden")) {
         console.log("show login, hide register");
         loginContainer.classList.remove("hidden");
         registerContainer.classList.add("hidden");
     }
-    else
-    {
+    else {
         console.log("hide login, show register")
         loginContainer.classList.add("hidden");
         registerContainer.classList.remove("hidden");
@@ -72,13 +61,11 @@ function animateHeight(timestamp, lastTimestamp) {
     let loginHeight = Number(loginContainer.scrollHeight);
     let registerHeight = Number(registerContainer.scrollHeight);
     let targetHeight = 0;
-    if(loginContainer.classList.contains("hidden"))
-    {
+    if (loginContainer.classList.contains("hidden")) {
         targetHeight = registerHeight;
         console.log(`register height ${registerHeight}`)
     }
-    else
-    {
+    else {
         targetHeight = loginHeight;
         console.log(`login height ${loginHeight}`);
     }
@@ -91,18 +78,16 @@ function animateHeight(timestamp, lastTimestamp) {
     console.log(deltaTime)
     lastTimestamp = timestamp;
     let currentH = loginDropdown.style.height;
-    if(!open)
-    {
+    if (!open) {
         targetHeight = 0;
     }
-    if(open)
-    {
+    if (open) {
         loginDropdown.style.width = "100%";
         targetHeight += getCurrentHeight(registerToggle) + getCurrentHeight(loginButton);
     }
 
     let heightChange = targetHeight - currentHeight;
-    let incrementH = (deltaTime/animationLength) * heightChange;
+    let incrementH = (deltaTime / animationLength) * heightChange;
 
     console.log(`incrementH = ${deltaTime}/${animationLength} = ${incrementH}`);
 
@@ -113,47 +98,37 @@ function animateHeight(timestamp, lastTimestamp) {
 
     console.log(height);
 
-    if(targetHeight > currentHeight)
-    {
-        if(height >= targetHeight)
-        {
+    if (targetHeight > currentHeight) {
+        if (height >= targetHeight) {
             animComplete = true;
         }
     }
-    else
-    {
-        if(height <= targetHeight)
-        {
+    else {
+        if (height <= targetHeight) {
             animComplete = true;
-            if(!open)
-                {
-                    loginDropdown.style.width = "0";
-                }
+            if (!open) {
+                loginDropdown.style.width = "0";
+            }
         }
     }
 
-    if(!animComplete)
-    {
-        requestAnimationFrame(function(timestamp) {animateHeight(timestamp, lastTimestamp)});
+    if (!animComplete) {
+        requestAnimationFrame(function (timestamp) { animateHeight(timestamp, lastTimestamp) });
     }
-    else
-    {
+    else {
         currentHeight = getCurrentHeight(loginDropdown);
     }
 }
 
-function getCurrentHeight(element)
-{
+function getCurrentHeight(element) {
     let topMargin = 0;
-    if(element.style.topMargin !== undefined)
-    {
-        topMargin = Number(element.style.topMargin.replace("px",""));
+    if (element.style.topMargin !== undefined) {
+        topMargin = Number(element.style.topMargin.replace("px", ""));
     }
-    
+
     let bottomMargin = 0;
-    if(element.style.bottomMargin !== undefined)
-    {
-        bottomMargin = Number(element.style.bottomMargin.replace("px",""));
+    if (element.style.bottomMargin !== undefined) {
+        bottomMargin = Number(element.style.bottomMargin.replace("px", ""));
     }
 
     return Number(element.getBoundingClientRect().height) + topMargin + bottomMargin;
