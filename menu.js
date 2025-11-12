@@ -1,7 +1,7 @@
 let menuItems = [];
 console.log("script loaded")
 
-let container = document.getElementById("menu-content"); //update later
+let container = document.getElementById("menu-grid");
 
 let topItemContainer = document.getElementById("top-product-container");
 let promotedItemContainer = document.getElementById("product-marquee-container");

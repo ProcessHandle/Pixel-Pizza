@@ -7,14 +7,16 @@ let registerToggleHeight = registerToggle.scrollHeight + registerToggleMargin;
 let closeButton = document.getElementById("login-close-btn");
 let loginButton = document.getElementById("login-out-btn");
 let animationLength = 400;
-let currentHeight = 0;
+let startHeight = 0;
 
 if(loginDropdown.classList.contains("closed"))
 {
     loginDropdown.style.height = "0px";
     loginDropdown.style.width = "0";
-    currentHeight = getCurrentHeight(loginDropdown);
+    startHeight = getCurrentHeight(loginDropdown);
 }
+
+
 
 function login()
 {
@@ -73,76 +75,46 @@ function animateHeight(timestamp, lastTimestamp) {
     */
 
     //possible add ease-in-ease-out math later
-    let loginHeight = Number(loginContainer.scrollHeight);
-    let registerHeight = Number(registerContainer.scrollHeight);
-    let targetHeight = 0;
-    if(loginContainer.classList.contains("hidden"))
-    {
-        targetHeight = registerHeight;
-        console.log(`register height ${registerHeight}`)
-    }
-    else
-    {
-        targetHeight = loginHeight;
-        console.log(`login height ${loginHeight}`);
-    }
 
+    let targetHeight = 0
 
-    let animComplete = false;
-    let open = loginDropdown.classList.contains("open");
-    console.log(timestamp);
-    let deltaTime = timestamp - lastTimestamp;
-    console.log(deltaTime)
-    lastTimestamp = timestamp;
-    let currentH = loginDropdown.style.height;
-    if(!open)
-    {
-        targetHeight = 0;
-    }
-    if(open)
+    let childElements = loginDropdown.children;
+
+    if(loginDropdown.classList.contains("open"))
     {
         loginDropdown.style.width = "100%";
-        targetHeight += getCurrentHeight(registerToggle) + getCurrentHeight(loginButton);
+        for(let i=0; i < childElements.length; i++)
+        {
+            if(!childElements[i].classList.contains("hidden"))
+            {
+                targetHeight += getCurrentHeight(childElements[i]);
+            }
+        }
+        targetHeight += getCurrentHeight(loginButton);
     }
 
-    let heightChange = targetHeight - currentHeight;
-    let incrementH = (deltaTime/animationLength) * heightChange;
+    let deltaTime = timestamp - lastTimestamp;
+    lastTimestamp = timestamp;
 
-    console.log(`incrementH = ${deltaTime}/${animationLength} = ${incrementH}`);
+    let incrementHeight = deltaTime/animationLength * (targetHeight - startHeight)
+    let newHeight = getCurrentHeight(loginDropdown) + incrementHeight;
+    loginDropdown.style.height = `${newHeight}px`;
 
-    let height = getCurrentHeight(loginDropdown);
-    height += incrementH;
-
-    loginDropdown.style.height = `${height}px`;
-
-    console.log(height);
-
-    if(targetHeight > currentHeight)
+    if(Math.abs(targetHeight - newHeight) < Math.abs(incrementHeight))
     {
-        if(height >= targetHeight)
+        //animation complete
+        loginDropdown.style.height = `${targetHeight}px`;
+
+        if(loginDropdown.classList.contains("closed"))
         {
-            animComplete = true;
+            loginDropdown.style.width = "0";
         }
+
+        startHeight = targetHeight;
     }
     else
-    {
-        if(height <= targetHeight)
-        {
-            animComplete = true;
-            if(!open)
-                {
-                    loginDropdown.style.width = "0";
-                }
-        }
-    }
-
-    if(!animComplete)
     {
         requestAnimationFrame(function(timestamp) {animateHeight(timestamp, lastTimestamp)});
-    }
-    else
-    {
-        currentHeight = getCurrentHeight(loginDropdown);
     }
 }
 

@@ -378,7 +378,7 @@ a span {
 
 }
 
-#menu-content {
+#menu-grid {
     margin-right: 260px;
     padding: 80px clamp(24px, 5vw, 60px);
     width: calc(100% - 260px);
