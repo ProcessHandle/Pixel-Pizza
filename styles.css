@@ -16,6 +16,8 @@
   --title-grad-end: #ff7b0a;
   --retrowave-pink: #FF46A2;
   --grid: 10rem;
+
+  --num-promoted-cards: 3;
 }
 
 body {
@@ -435,6 +437,36 @@ a span {
     color: var(--dim);
     user-select: none;
 
+}
+
+#product-marquee-container {
+    width: 90%;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+#marquee-track {
+    width: calc(600px * var(--num-promoted-cards)*2);
+    display: grid;
+    grid-template-columns: repeat(calc(var(--num-promoted-cards)*2), 1fr);
+}
+
+.marquee-card {
+    animation: carousel 15s linear infinite;
+}
+
+#product-marquee-container:hover .marquee-card {
+    animation-play-state: paused;
+}
+
+@keyframes carousel {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(600px * var(--num-promoted-cards) * -1));
+    }
 }
 
 #menu-grid {
