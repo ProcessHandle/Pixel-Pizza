@@ -1,50 +1,50 @@
 {
   "menuItems": [
     {
-      "title": "Example 1",
+      "title": "The Final Boss",
       "image": "images/temp-pizza.png",
       "price": "50.00",
-      "description": "This pizza is definitely appetizing and delicious",
+      "description": "Sausage, bacon, ham, pepperoni, ground beef.",
       "topProduct": true
     },
     {
-      "title": "Example 2",
+      "title": "Power Up Pepperoni",
       "image": "images/temp-pizza.png",
       "price": "50.00",
-      "description": "This pizza is definitely appetizing and delicious",
+      "description": "Classic pepperoni overload + mozzarella on a crisp 16-bit crust.",
       "promoted": true
     },
     {
-      "title": "Example 3",
+      "title": "Mushroom Kingdom Special",
       "image": "images/temp-pizza.png",
       "price": "50.00",
-      "description": "This pizza is definitely appetizing and delicious",
+      "description": "Mushrooms, spinach, roasted garlic, mozzarella, white sauce.",
       "promoted": true
     },
     {
-      "title": "Example 4",
+      "title": "Ender Dragon Fire",
       "image": "images/temp-pizza.png",
       "price": "50.00",
-      "description": "This pizza is definitely appetizing and delicious",
+      "description": "Buffalo chicken, jalapeños, red pepper flakes, spicy marinara.",
       "promoted": true
     },
     {
-      "title": "Example 5",
+      "title": "BBQ Chicken Jockey",
       "image": "images/temp-pizza.png",
       "price": "50.00",
-      "description": "This pizza is definitely appetizing and delicious"
+      "description": "BBQ chicken, red onions, smoked gouda, cilantro."
     },
     {
-      "title": "Example 6",
+      "title": "Arcane Alfredo",
       "image": "images/temp-pizza.png",
       "price": "50.00",
-      "description": "This pizza is definitely appetizing and delicious"
+      "description": "Alfredo base, chicken, spinach, parmesan, roasted garlic."
     },
     {
-      "title": "Example 7",
+      "title": "Bomb Bites",
       "image": "images/temp-pizza.png",
       "price": "500.00",
-      "description": "This pizza is definitely appetizing and delicious"
+      "description": "Cheesy jalapeño poppers."
     }
   ]
 }

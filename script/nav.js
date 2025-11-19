@@ -39,5 +39,7 @@ function navigate(item)
             content[key].classList.add("hidden");
         }
     })
+
+    window.scrollTo(0, 0); // scrolls to top of page
     
 }
