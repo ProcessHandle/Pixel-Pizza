@@ -6,6 +6,15 @@ let container = document.getElementById("menu-grid");
 let topItemContainer = document.getElementById("top-product-container");
 let promotedItemContainer = document.getElementById("marquee-track");
 
+const MenuItemsLoaded = new CustomEvent("MenuItemsLoaded", {
+  detail: {
+    message: "Menu itmes have been loaded",
+    timestamp: new Date().toISOString()
+  },
+  bubbles: true,
+  cancelable: true
+  });
+
 class MenuItem {
   constructor(title, imgUrl, price = 0, description = "", topProduct, promotedProduct) {
     this.title = title;
@@ -64,20 +73,7 @@ class MenuItem {
     {
       this.promotedElement = this.element.cloneNode(true);
       this.promotedElement.classList.add("marquee-card");
-      let duplicateNode = this.element.cloneNode(true);
-      duplicateNode.classList.add("marquee-card");
-      let length = promotedItemContainer.children.length;
-      console.log(length);
-      console.log(`length: ${length/2}`);
-      if(length > 0)
-      {
-        promotedItemContainer.insertBefore(this.promotedElement, promotedItemContainer.children[length/2]);
-      }
-      else
-      {
-        promotedItemContainer.appendChild(this.promotedElement);
-      }
-      promotedItemContainer.appendChild(duplicateNode);
+      promotedItemContainer.appendChild(this.promotedElement);
     }
   }
 
@@ -85,9 +81,10 @@ class MenuItem {
 }
 
 // Load our template menu for now. Will need to wrap this inside a condition to check if the menu is in our storage then save it.
-fetch('menu-template.json').then(res => res.json()).then(data => {
+fetch('data/menu-template.json').then(res => res.json()).then(data => {
   data.menuItems.forEach(item => {
     menuItems.push(new MenuItem(item.title, item.image, item.price, item.description, item.topProduct, item.promoted));
   })
+  document.dispatchEvent(MenuItemsLoaded);
 })
 

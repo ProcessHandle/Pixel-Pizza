@@ -15,8 +15,8 @@
   --title-grad-start: #ffb54a;
   --title-grad-end: #ff7b0a;
   --retrowave-pink: #FF46A2;
+  --retro-red: #ff3b3b;
   --grid: 10rem;
-
   --num-promoted-cards: 3;
 }
 
@@ -44,7 +44,7 @@ body {
 .plane {
   --dir: 1;
   width: 300%;
-  height: 150%;
+  height: 180%;
   position: absolute;
   bottom: 0;
   transform: translateX(-50%) rotateX(85deg);
@@ -58,6 +58,8 @@ body {
   top: 0;
   transform: translateX(-50%) rotateX(-85deg);
   transform-origin: top center;
+  width: 200%;   
+  height: 100%;
 }
 
 .grid::before,
@@ -70,11 +72,20 @@ body {
 
 .grid::before {
   background-image:
-    repeating-linear-gradient(to left, var(--glorange) 0 2px, transparent 2px var(--grid)),
-    repeating-linear-gradient(to bottom, var(--glorange) 0 2px, transparent 2px var(--grid));
+    repeating-linear-gradient(
+      to left,
+      var(--retro-red) 0 2px,
+      transparent 1px var(--grid)
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--glorange) 0 2px,
+      transparent 2px var(--grid)
+    );
   opacity: 0.25;
   animation: move 1.2s linear infinite;
 }
+
 
 .grid::after {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) var(--grid), rgba(0, 0, 0, 0));
@@ -214,14 +225,32 @@ a span {
     cursor: pointer;
     color: var(--ink);
     font-size: 15px;
-    transition: .25s;
-    border-bottom: 1px solid transparent;
+    position: relative;
+    transition: color .25s ease, transform .25s ease;
+}
+
+#nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 0%;
+    background: var(--glorange);
+    box-shadow: 0 0 6px var(--glorange);
+    transition: width .1s ease;
+    opacity: 0.8;
 }
 
 #nav-links a:hover {
     color: var(--glorange);
-    border-bottom: 1px solid var(--divider);
+    transform: translateY(-2px) translateZ(0) scale(1.02);
 }
+
+#nav-links a:hover::after {
+    width: 100%;
+}
+
 
 #cart-section {
     flex: 1;
@@ -439,20 +468,83 @@ a span {
 
 }
 
+.card-large{
+    grid-template-areas:
+    "header header"
+    "img title"
+    "img info" !important;
+    max-width: 450px !important;
+    transform: scaleX(102%);
+    transform: scaleY(96%);
+}
+
+.card-large h2 {
+    font-size: 1.1em !important;
+}
+
+#top-product-container {
+    display: inline-block;
+}
+
+.card-large::before {
+    content: "TOP PRODUCT";
+    background: linear-gradient(to right, var(--retro-red), var(--glorange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    grid-area: header;
+    text-align: center;
+    font-size: 1.2em;
+    letter-spacing: 2px;
+    font-weight: 1000;
+    margin-top: -7px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--glorange);
+}
+
+#top-product-row {
+    display: flex;
+    margin-bottom: 60px;
+    justify-content: space-between;
+}
+
+#menu-link-container {
+    display: inline-block;
+    width: fit-content;
+    align-self: flex-end;
+}
+
+#menu-link {
+    display: inline-block;
+}
+
 #product-marquee-container {
-    width: 90%;
     margin: 20px auto;
     overflow: hidden;
+    --column-width: 420px;
+    --num-duplicates: 3;
+
+    mask-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, .2) 3%,
+    rgba(255, 255, 255, .5) 6%,
+    rgba(255, 255, 255, 1) 12%,
+    rgba(255, 255, 255, 1) 88%,
+    rgba(255, 255, 255, .5) 94%,
+    rgba(255, 255, 255, .2) 97%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
 #marquee-track {
-    width: calc(600px * var(--num-promoted-cards)*2);
+    width: calc(var(--column-width) * var(--num-promoted-cards) * var(--num-duplicates));
     display: grid;
-    grid-template-columns: repeat(calc(var(--num-promoted-cards)*2), 1fr);
+    grid-template-columns: repeat(calc(var(--num-promoted-cards) * var(--num-duplicates)), 1fr);
 }
 
 .marquee-card {
-    animation: carousel 15s linear infinite;
+    max-width: 300px !important;
+    animation: carousel 12s linear infinite;
 }
 
 #product-marquee-container:hover .marquee-card {
@@ -465,7 +557,7 @@ a span {
     }
 
     100% {
-        transform: translateX(calc(600px * var(--num-promoted-cards) * -1));
+        transform: translateX(calc(var(--column-width) * var(--num-promoted-cards) * -1));
     }
 }
 
