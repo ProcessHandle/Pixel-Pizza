@@ -1,115 +1,113 @@
 :root {
-  --bg: #000;
-  --bg-comp: #1a1c23;
-  --trp-bg: rgba(11, 12, 16, 0.25);
-  --ink: #e9edf1;
-  --dim: #a9b1bb;
-  --divider: rgba(216, 110, 4, 0.35);
-  --glorange: #ffb54a;
-  --card-img-bg-grid: #30303029;
-  --card-img-border: #372e21;
-  --btn-bg: rgba(255, 181, 74, 0.12);
-  --btn-bg-hover: rgba(255, 181, 74, 0.25);
-  --border-soft: rgba(255, 255, 255, 0.08);
-  --checkout-bord: rgba(255, 181, 74, 0.35);
-  --title-grad-start: #ffb54a;
-  --title-grad-end: #ff7b0a;
-  --retrowave-pink: #FF46A2;
-  --retro-red: #ff3b3b;
-  --grid: 10rem;
-  --num-promoted-cards: 3;
+    --bg: #000;
+    --bg-comp: #1a1c23;
+    --trp-bg: rgba(11, 12, 16, 0.25);
+    --ink: #e9edf1;
+    --dim: #a9b1bb;
+    --divider: rgba(216, 110, 4, 0.35);
+    --glorange: #ffb54a;
+    --card-img-bg-grid: #30303029;
+    --card-img-border: #372e21;
+    --btn-bg: rgba(255, 181, 74, 0.12);
+    --btn-bg-hover: rgba(255, 181, 74, 0.25);
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --checkout-bord: rgba(255, 181, 74, 0.35);
+    --title-grad-start: #ffb54a;
+    --title-grad-end: #ff7b0a;
+    --retrowave-pink: #FF46A2;
+    --retrowave-pink-off: #FF79C0;
+    --retro-red: #ff3b3b;
+    --grid: 10rem;
+    --num-promoted-cards: 3;
 }
 
 body {
-  margin: 0;
-  color: var(--ink);
-  background: var(--bg);
-  font: 400 16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-  letter-spacing: .1px;
-  overflow-x: hidden;
-  position: relative;
+    margin: 0;
+    color: var(--ink);
+    background: var(--bg);
+    font: 400 16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    letter-spacing: .1px;
+    overflow-x: hidden;
+    position: relative;
 }
 
 .grid-container {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  inset: 0;
-  perspective: 100rem;
-  z-index: -3;
-  pointer-events: none;
-  transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    inset: 0;
+    perspective: 100rem;
+    z-index: -3;
+    pointer-events: none;
+    transform-style: preserve-3d;
 }
 
 .plane {
-  --dir: 1;
-  width: 300%;
-  height: 180%;
-  position: absolute;
-  bottom: 0;
-  transform: translateX(-50%) rotateX(85deg);
-  transform-origin: bottom center;
-  will-change: transform;
-  contain: layout paint;
+    --dir: 1;
+    width: 300%;
+    height: 180%;
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%) rotateX(85deg);
+    transform-origin: bottom center;
+    will-change: transform;
+    contain: layout paint;
 }
 
 .plane:last-child {
-  --dir: -1;
-  top: 0;
-  transform: translateX(-50%) rotateX(-85deg);
-  transform-origin: top center;
-  width: 200%;   
-  height: 100%;
+    --dir: -1;
+    top: 0;
+    transform: translateX(-50%) rotateX(-85deg);
+    transform-origin: top center;
+    width: 200%;
+    height: 100%;
 }
 
 .grid::before,
 .grid::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  will-change: transform, opacity;
+    content: '';
+    position: absolute;
+    inset: 0;
+    will-change: transform, opacity;
 }
 
 .grid::before {
-  background-image:
-    repeating-linear-gradient(
-      to left,
-      var(--retro-red) 0 2px,
-      transparent 1px var(--grid)
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      var(--glorange) 0 2px,
-      transparent 2px var(--grid)
-    );
-  opacity: 0.25;
-  animation: move 1.2s linear infinite;
+    background-image:
+        repeating-linear-gradient(to left,
+            var(--retro-red) 0 2px,
+            transparent 1px var(--grid)),
+        repeating-linear-gradient(to bottom,
+            var(--glorange) 0 2px,
+            transparent 2px var(--grid));
+    opacity: 0.25;
+    animation: move 1.2s linear infinite;
 }
 
 
 .grid::after {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) var(--grid), rgba(0, 0, 0, 0));
-  transform: translateZ(0);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) var(--grid), rgba(0, 0, 0, 0));
+    transform: translateZ(0);
 }
 
 .plane:last-child .grid::after {
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 1) var(--grid), rgba(0, 0, 0, 0));
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 1) var(--grid), rgba(0, 0, 0, 0));
 }
 
 .glow {
-  filter: blur(1.5rem);
-  mix-blend-mode: plus-lighter;
-  opacity: 0.12;
-  will-change: filter, opacity;
+    filter: blur(1.5rem);
+    mix-blend-mode: plus-lighter;
+    opacity: 0.12;
+    will-change: filter, opacity;
 }
 
 @keyframes move {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--grid) * var(--dir)));
-  }
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(calc(var(--grid) * var(--dir)));
+    }
 }
 
 .hidden {
@@ -173,7 +171,7 @@ body {
 
 #login-dropdown {
     overflow: hidden;
-    /* transition: height .8s ease-in-out, width 0s ease 0.2s; */
+    /* transition: height .8s ease-in-out, width 0s ease .12s; */
 }
 
 #login-dropdown.open {
@@ -468,83 +466,20 @@ a span {
 
 }
 
-.card-large{
-    grid-template-areas:
-    "header header"
-    "img title"
-    "img info" !important;
-    max-width: 450px !important;
-    transform: scaleX(102%);
-    transform: scaleY(96%);
-}
-
-.card-large h2 {
-    font-size: 1.1em !important;
-}
-
-#top-product-container {
-    display: inline-block;
-}
-
-.card-large::before {
-    content: "TOP PRODUCT";
-    background: linear-gradient(to right, var(--retro-red), var(--glorange));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    grid-area: header;
-    text-align: center;
-    font-size: 1.2em;
-    letter-spacing: 2px;
-    font-weight: 1000;
-    margin-top: -7px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--glorange);
-}
-
-#top-product-row {
-    display: flex;
-    margin-bottom: 60px;
-    justify-content: space-between;
-}
-
-#menu-link-container {
-    display: inline-block;
-    width: fit-content;
-    align-self: flex-end;
-}
-
-#menu-link {
-    display: inline-block;
-}
-
 #product-marquee-container {
+    width: 90%;
     margin: 20px auto;
     overflow: hidden;
-    --column-width: 420px;
-    --num-duplicates: 3;
-
-    mask-image: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, .2) 3%,
-    rgba(255, 255, 255, .5) 6%,
-    rgba(255, 255, 255, 1) 12%,
-    rgba(255, 255, 255, 1) 88%,
-    rgba(255, 255, 255, .5) 94%,
-    rgba(255, 255, 255, .2) 97%,
-    rgba(255, 255, 255, 0) 100%
-  );
 }
 
 #marquee-track {
-    width: calc(var(--column-width) * var(--num-promoted-cards) * var(--num-duplicates));
+    width: calc(600px * var(--num-promoted-cards)*2);
     display: grid;
-    grid-template-columns: repeat(calc(var(--num-promoted-cards) * var(--num-duplicates)), 1fr);
+    grid-template-columns: repeat(calc(var(--num-promoted-cards)*2), 1fr);
 }
 
 .marquee-card {
-    max-width: 300px !important;
-    animation: carousel 12s linear infinite;
+    animation: carousel 15s linear infinite;
 }
 
 #product-marquee-container:hover .marquee-card {
@@ -557,7 +492,7 @@ a span {
     }
 
     100% {
-        transform: translateX(calc(var(--column-width) * var(--num-promoted-cards) * -1));
+        transform: translateX(calc(600px * var(--num-promoted-cards) * -1));
     }
 }
 
@@ -566,7 +501,7 @@ a span {
     padding: 80px clamp(24px, 5vw, 60px);
     width: calc(100% - 260px);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(max(240px,30%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(max(240px, 30%), 1fr));
     gap: 24px;
     justify-items: center;
     align-content: start;
@@ -738,6 +673,290 @@ a span {
     background: var(--btn-bg-hover);
 }
 
+.sub-bottom {
+    text-align: center;
+    margin: 65px 0 0 0;
+    color: var(--dim);
+    user-select: none;
+    transform: rotateX(50deg);
+    font-size: 20px;
+    font-family: "Press Start 2P";
+
+    text-shadow:
+        0 2px 0 rgba(255, 255, 255, 0.12),
+        0 4px 0 rgba(255, 255, 255, 0.10),
+        0 6px 1px rgba(0, 0, 0, 0.20),
+        0 8px 2px rgba(0, 0, 0, 0.25),
+        0 10px 6px rgba(0, 0, 0, 0.28),
+        0 14px 12px rgba(0, 0, 0, 0.32),
+        0 18px 18px rgba(0, 0, 0, 0.36),
+        0 26px 28px rgba(0, 0, 0, 0.40),
+        0 34px 40px rgba(0, 0, 0, 0.42);
+}
+
+#about-r {
+    padding: 80px 0;
+    max-width: 1100px;
+    margin: auto;
+    color: var(--ink);
+}
+
+.about-t {
+    margin-top: 40px;
+    white-space: normal;
+}
+
+.about-s {
+    text-align: center;
+    color: var(--dim);
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+
+#about-hs {
+    margin: 80px 0;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.about-ir {
+    flex: 1;
+    max-width: 380px;
+}
+
+.about-img {
+    width: 100%;
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    background:
+        repeating-linear-gradient(0deg, var(--card-img-bg-grid) 0 2px, transparent 2px 6px),
+        repeating-linear-gradient(90deg, var(--card-img-bg-grid) 0 2px, transparent 2px 6px);
+    image-rendering: pixelated;
+}
+
+.about-hero-text {
+    flex: 2;
+    font-size: 16px;
+    color: var(--dim);
+    line-height: 1.7;
+}
+
+.about-section-title {
+    font-family: "Press Start 2P";
+    font-size: 22px;
+    text-align: center;
+    margin: 60px 0 30px;
+    background: linear-gradient(to bottom, var(--title-grad-end), var(--retrowave-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#about-features {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.about-card {
+    background: var(--bg-comp);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 26px;
+    max-width: 300px;
+    flex: 1 1 260px;
+    text-align: center;
+    transition: .2s ease;
+}
+
+.about-card:hover {
+    border-color: var(--glorange);
+    box-shadow: 0 0 16px rgba(255, 181, 74, 0.25);
+    transform: translateY(-4px);
+}
+
+.about-card:hover {
+    border-color: var(--retrowave-pink);
+}
+
+.about-card:hover img {
+    border-color: var(--retrowave-pink);
+}
+
+.about-card:hover h3 {
+    background: linear-gradient(90deg, var(--retrowave-pink), var(--retrowave-pink-off));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.about-card:hover p {
+    color: white;
+}
+
+.about-card h3 {
+    font-family: "Press Start 2P";
+    font-size: 14px;
+    background: linear-gradient(90deg, var(--title-grad-start), var(--title-grad-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    height: 48px;
+}
+
+.about-card p {
+    color: var(--dim);
+}
+
+#about-timeline {
+    border-left: 2px solid var(--divider);
+    margin: 40px auto;
+    padding-left: 30px;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.timeline-item {
+    position: relative;
+    transition: transform ease .12s;
+}
+
+.timeline-item p,
+h4 {
+    transition: transform ease .12s, color ease-out .12s;
+}
+
+.timeline-item:hover h4,
+.timeline-item:hover p {
+    transform: translateX(5px);
+}
+
+.timeline-item:hover p {
+    color: white;
+}
+
+.tl-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    left: -37px;
+    top: 19px;
+    box-shadow: 0 0 8px currentColor;
+    transform: scale(1);
+    transition: transform .12s ease, box-shadow .18s ease;
+}
+
+.timeline-item:hover .tl-dot {
+    transform: scale(1.2);
+    box-shadow: 0 0 12px currentColor, 0 0 24px currentColor;
+}
+
+.tl-dot--orange {
+    background: var(--glorange);
+    color: var(--glorange);
+}
+
+.tl-dot--pink {
+    background: var(--retrowave-pink);
+    color: var(--retrowave-pink);
+}
+
+
+.tl-text h4 {
+    font-family: "Press Start 2P";
+    font-size: 13px;
+    margin-bottom: 6px;
+    background: linear-gradient(90deg, var(--title-grad-start), var(--title-grad-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tl-text p {
+    padding-left: 12px;
+    color: var(--dim);
+    font-size: 15px;
+}
+
+#about-team {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.team-card {
+    background: var(--bg-comp);
+    border: 1px solid var(--divider);
+    padding: 26px;
+    border-radius: 12px;
+    max-width: 280px;
+    text-align: center;
+    transition: .25s ease;
+}
+
+.team-card:hover {
+    border-color: var(--retrowave-pink);
+}
+
+.team-card:hover img {
+    border-color: var(--retrowave-pink);
+}
+
+.team-card:hover h3 {
+    background: linear-gradient(90deg, var(--retrowave-pink), var(--retrowave-pink-off));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.team-card:hover p {
+    color: white;
+}
+
+.team-card:hover {
+    box-shadow: 0 0 16px rgba(255, 70, 162, 0.25);
+    transform: translateY(-4px);
+}
+
+.team-card h3 {
+    font-family: "Press Start 2P";
+    font-size: 14px;
+    background: linear-gradient(90deg, var(--title-grad-start), var(--title-grad-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+}
+
+.team-card p {
+    color: var(--dim);
+}
+
+#about-cta {
+    margin: 80px auto 40px;
+    text-align: center;
+}
+
+#about-cta h2 {
+    font-family: "Press Start 2P";
+    font-size: 20px;
+    margin-bottom: 16px;
+    background: linear-gradient(90deg, var(--title-grad-start), var(--title-grad-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#about-cta a {
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--glorange);
+    text-decoration: underline;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -770,13 +989,13 @@ input[type="number"] {
 #about-content,
 #history-content,
 #edit-menu-content,
-#sales-data-content {
+#sales-data-content,
+.sub {
     height: 100%;
     margin-right: 260px;
     padding: 0 60px 80px;
     box-sizing: border-box;
 }
-
 
 html::-webkit-scrollbar {
     width: 2px;
@@ -793,13 +1012,15 @@ html::-webkit-scrollbar-track {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .grid::before {
-    animation: none;
-  }
-  .grid-container {
-    perspective: none;
-  }
-  .plane {
-    transform: none;
-  }
+    .grid::before {
+        animation: none;
+    }
+
+    .grid-container {
+        perspective: none;
+    }
+
+    .plane {
+        transform: none;
+    }
 }
