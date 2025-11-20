@@ -466,20 +466,81 @@ a span {
 
 }
 
+.card-large {
+    grid-template-areas:
+        "header header"
+        "img title"
+        "img info" !important;
+    max-width: 450px !important;
+    transform: scaleX(102%);
+    transform: scaleY(96%);
+}
+
+.card-large h2 {
+    font-size: 1.1em !important;
+}
+
+#top-product-container {
+    display: inline-block;
+}
+
+.card-large::before {
+    content: "TOP PRODUCT";
+    background: linear-gradient(to right, var(--retro-red), var(--glorange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    grid-area: header;
+    text-align: center;
+    font-size: 1.2em;
+    letter-spacing: 2px;
+    font-weight: 1000;
+    margin-top: -7px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--glorange);
+}
+
+#top-product-row {
+    display: flex;
+    margin-bottom: 60px;
+    justify-content: space-between;
+}
+
+#menu-link-container {
+    display: inline-block;
+    width: fit-content;
+    align-self: flex-end;
+}
+
+#menu-link {
+    display: inline-block;
+}
+
 #product-marquee-container {
-    width: 90%;
     margin: 20px auto;
     overflow: hidden;
+    --column-width: 420px;
+    --num-duplicates: 3;
+
+    mask-image: linear-gradient(to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, .2) 3%,
+            rgba(255, 255, 255, .5) 6%,
+            rgba(255, 255, 255, 1) 12%,
+            rgba(255, 255, 255, 1) 88%,
+            rgba(255, 255, 255, .5) 94%,
+            rgba(255, 255, 255, .2) 97%,
+            rgba(255, 255, 255, 0) 100%);
 }
 
 #marquee-track {
-    width: calc(600px * var(--num-promoted-cards)*2);
+    width: calc(var(--column-width) * var(--num-promoted-cards) * var(--num-duplicates));
     display: grid;
-    grid-template-columns: repeat(calc(var(--num-promoted-cards)*2), 1fr);
+    grid-template-columns: repeat(calc(var(--num-promoted-cards) * var(--num-duplicates)), 1fr);
 }
 
 .marquee-card {
-    animation: carousel 15s linear infinite;
+    max-width: 300px !important;
+    animation: carousel 12s linear infinite;
 }
 
 #product-marquee-container:hover .marquee-card {
@@ -492,7 +553,7 @@ a span {
     }
 
     100% {
-        transform: translateX(calc(600px * var(--num-promoted-cards) * -1));
+        transform: translateX(calc(var(--column-width) * var(--num-promoted-cards) * -1));
     }
 }
 
@@ -569,22 +630,19 @@ a span {
     transition: transform 0.3s ease;
 }
 
-@media(min-width: 1145px)
-{
+@media(min-width: 1145px) {
     .card h2 {
         font-size: .7vw;
     }
 }
 
-@media(max-width: 1144px)
-{
+@media(max-width: 1144px) {
     .card h2 {
         font-size: 1.4vw;
     }
 }
 
-@media(max-width: 849px)
-{
+@media(max-width: 849px) {
     .card h2 {
         font-size: 2.1vw;
     }
