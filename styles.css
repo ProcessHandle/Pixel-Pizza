@@ -518,7 +518,7 @@ a span {
 #product-marquee-container {
     margin: 20px auto;
     overflow: hidden;
-    --column-width: 420px;
+    --column-width: 480px;
     --num-duplicates: 3;
 
     mask-image: linear-gradient(to right,
@@ -539,7 +539,6 @@ a span {
 }
 
 .marquee-card {
-    max-width: 300px !important;
     animation: carousel 12s linear infinite;
 }
 
