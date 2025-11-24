@@ -1,13 +1,15 @@
 content = {
     home:document.getElementById("home-content"),
     menu:document.getElementById("menu-content") ,
-    about:document.getElementById("about-content")
+    about:document.getElementById("about-content"),
+    edit:document.getElementById("edit-menu-content")
 }
 
 navLinks = {
     home:document.getElementById("nav-home"),
     menu:document.getElementById("nav-menu"),
     about:document.getElementById("nav-about"),
+    edit:document.getElementById("nav-edit")
 }
 
 for(i = 0; i<document.getElementsByClassName("nav-link").length; i++)
