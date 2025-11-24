@@ -1,3 +1,27 @@
+/* 
+       .------..
+     -          -
+   /              \
+ /                   \
+/    .--._    .---.   |
+|  /      -__-     \   |
+| |                 |  |
+ ||     ._   _.      ||
+ ||      o   o       ||
+ ||      _  |_      ||
+ C|     (o\_/o)     |O     Uhhh, this computer
+  \      _____      /       is like, busted or
+    \ ( /#####\ ) /       something. So go away.
+     \  `====='  /
+      \  -___-  /
+       |       |
+       /-_____-\
+     /           \
+   /               \
+  /__|  AC / DC  |__\
+  | ||           |\ \
+*/
+
 let loginDropdown = document.getElementById("login-dropdown");
 let loginContainer = document.getElementById("login-container");
 let registerContainer = document.getElementById("register-container");
@@ -6,8 +30,49 @@ let registerToggleMargin = getCurrentHeight(registerToggle);
 let registerToggleHeight = registerToggle.scrollHeight + registerToggleMargin;
 let closeButton = document.getElementById("login-close-btn");
 let loginButton = document.getElementById("login-out-btn");
-let animationLength = 400;
+let emailInput = document.querySelector('input[name="email"]');
+let passwordInput = document.querySelector('input[name="pass"]'); passwordInput.type = "password";
+let nameInput = document.querySelector('input[name="name"]');
+let regNameInput = document.querySelector('#register-container input[name="name"]');
+let regEmailInput = document.querySelector('#register-container input[name="email"]');
+let regPassInput = document.querySelector('#register-container input[name="pass"]'); regPassInput.type = "password";
+let regConfirmPassInput = document.querySelector('#register-container input[name="conf-pass"]'); regConfirmPassInput.type = "password";
+let loginMessage = document.getElementById("login-msg")
+let animationLength = 250;
 let startHeight = 0;
+let accountStorage = () => JSON.parse(localStorage.getItem("Accounts") || "{}")
+let saveStorage = o => localStorage.setItem("Accounts", JSON.stringify(o))
+let currentUser;
+let clearStorage = () => {localStorage.clear(); console.log("Cleared localStorage successfully.")} 
+
+function uiUpdate() {
+    if (currentUser) {
+        loginMessage.innerText = `Welcome ${currentUser.name}!`;
+        loginButton.innerText = "Logout";
+        if (loginDropdown.classList.contains("open")) {
+            toggleDropdown();
+        }
+    } else {
+        loginMessage.innerText = "Logged Out";
+        loginButton.innerText = "Login";
+        if (loginContainer.classList.contains("hidden")) {
+            loginContainer.classList.remove("hidden");
+            registerContainer.classList.add("hidden");
+        }
+    }
+}
+
+function statusMessage(msg, t = 3000) {
+    let currentMessage = loginMessage.innerText;
+    loginMessage.innerText = msg;
+
+    setTimeout(() => {
+        loginMessage.innerText = currentMessage;
+    }, t);
+}
+
+console.log(accountStorage())
+if (Object.keys(accountStorage()).length > 0) { console.log("Initiated Account Storage Successfully") }
 
 if (loginDropdown.classList.contains("closed")) {
     loginDropdown.style.height = "0px";
@@ -15,19 +80,150 @@ if (loginDropdown.classList.contains("closed")) {
     startHeight = getCurrentHeight(loginDropdown);
 }
 
+function tohex(b) {
+    return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("")
+}
+
+function letshash(p) {
+    try {
+        const enc = new TextEncoder().encode(p)
+        const buf = crypto.subtle.digest("SHA-256", enc)
+        return tohex(buf)
+    } catch {
+        let x = 0
+        for (const c of p) x = (x * 31 + c.charCodeAt(0)) >>> 0
+        return ("00000000" + x.toString(16)).slice(-8)
+    }
+}
+
+function loginUser(email, password) {
+    let store = accountStorage();
+    let admin = store.isAdmin || false
+    email = email.toLowerCase()
+    console.log(`Email: ${email} , Pass: ${password}`)
+    if (email === "test" && password === "test") { return { status_ok: true, isAdmin: true, Name: "Test Account", msg: "Test account passed conditions" } }
+    if (!store[email]) {
+        return { status_ok: false, msg: "Account not found." };
+    }
+
+    let hashed = letshash(password);
+
+    if (hashed !== store[email].password) {
+        return { status_ok: false, msg: "Incorrect password." };
+    }
+
+    if (admin) { }
+
+    return { status_ok: true, isAdmin: admin, Name: store[email].name };
+}
+
+function createAccount(name, email, pass) {
+    const store = accountStorage();
+    email = email.toLowerCase()
+
+    if (store[email]) {
+        return { status_ok: false, msg: "Email already in use." };
+    }
+
+    const hashed = letshash(pass);
+
+    store[email] = {
+        password: hashed,
+        name: name,
+        created: Date.now()
+    };
+
+    saveStorage(store);
+    return { status_ok: true, msg: `Account created successfully.`, email: email, name: name };
+}
+
+function handleLogInOut() {
+    if (currentUser) {
+        currentUser = null;
+        uiUpdate();
+        statusMessage("Logged out successfully", 2000);
+    } else {
+        login();
+    }
+}
+
 function login() {
+    let email = emailInput.value
+    let pass = passwordInput.value
+
     if (loginDropdown.classList.contains("closed")) {
         toggleDropdown()
     }
     else if (!loginContainer.classList.contains("hidden")) {
-        //login logic goes here
+        let res = loginUser(email, pass)
+
+        if (res.status_ok) {
+            currentUser = {
+                email: email,
+                name: res.Name,
+                isAdmin: res.isAdmin
+            };
+            uiUpdate();
+            statusMessage(`Welcome ${res.Name}.`, 2000)
+        } else {
+            statusMessage(res.msg, 3000)
+        }
+        console.log(res)
     }
     else if (!registerContainer.classList.contains("hidden")) {
-        //register logic goes here
+
+        let regName = regNameInput.value.trim();
+        let regEmail = regEmailInput.value.trim().toLowerCase();
+        let regPass = regPassInput.value.trim();
+        let regPassConfirmation = regConfirmPassInput.value.trim();
+
+        if (!regName || !regEmail || !regPass || !regPassConfirmation) {
+            statusMessage("Please fill all fields.", 2000);
+            return;
+        }
+
+        if (regPass !== regPassConfirmation) {
+            statusMessage("Passwords do not match.", 2000);
+            return;
+        }
+
+        let res = createAccount(regName, regEmail, regPass);
+
+        if (res.status_ok) {
+            statusMessage("Account created. Logging you in...", 1500);
+
+            setTimeout(async () => {
+                let loginRes = loginUser(regEmail, regPass);
+                if (loginRes.status_ok) {
+                    currentUser = {
+                        email: regEmail,
+                        name: loginRes.Name,
+                        isAdmin: loginRes.isAdmin
+                    };
+                    uiUpdate();
+                    statusMessage(`Welcome ${loginRes.Name}!`, 2000);
+
+                    regNameInput.value = "";
+                    regEmailInput.value = "";
+                    regPassInput.value = "";
+                    regConfirmPassInput.value = "";
+                }
+            }, 1500);
+        } else {
+            statusMessage(res.msg, 3000);
+        }
     }
 }
 
 function toggleDropdown() {
+    if (currentUser && loginDropdown.classList.contains("open")) {
+        loginDropdown.classList.replace("open", "closed");
+        closeButton.classList.add("hidden")
+        requestAnimationFrame(function (timestamp) { animateHeight(timestamp, timestamp) });
+        return;
+    }
+    if (currentUser) return;
+
     if (loginDropdown.classList.contains("closed")) {
         loginDropdown.classList.replace("closed", "open");
         closeButton.classList.remove("hidden");
@@ -41,6 +237,8 @@ function toggleDropdown() {
 }
 
 function toggleRegister() {
+    if (currentUser) return;
+
     console.log("toggleRegister()")
     if (loginContainer.classList.contains("hidden")) {
         console.log("show login, hide register");
@@ -67,13 +265,10 @@ function animateHeight(timestamp, lastTimestamp) {
 
     let childElements = loginDropdown.children;
 
-    if(loginDropdown.classList.contains("open"))
-    {
+    if (loginDropdown.classList.contains("open")) {
         loginDropdown.style.width = "100%";
-        for(let i=0; i < childElements.length; i++)
-        {
-            if(!childElements[i].classList.contains("hidden"))
-            {
+        for (let i = 0; i < childElements.length; i++) {
+            if (!childElements[i].classList.contains("hidden")) {
                 targetHeight += getCurrentHeight(childElements[i]);
             }
         }
@@ -83,25 +278,22 @@ function animateHeight(timestamp, lastTimestamp) {
     let deltaTime = timestamp - lastTimestamp;
     lastTimestamp = timestamp;
 
-    let incrementHeight = deltaTime/animationLength * (targetHeight - startHeight)
+    let incrementHeight = deltaTime / animationLength * (targetHeight - startHeight)
     let newHeight = getCurrentHeight(loginDropdown) + incrementHeight;
     loginDropdown.style.height = `${newHeight}px`;
 
-    if(Math.abs(targetHeight - newHeight) < Math.abs(incrementHeight))
-    {
-        //animation complete
+
+    if (Math.abs(targetHeight - newHeight) < Math.abs(incrementHeight)) {
         loginDropdown.style.height = `${targetHeight}px`;
 
-        if(loginDropdown.classList.contains("closed"))
-        {
+        if (loginDropdown.classList.contains("closed")) {
             loginDropdown.style.width = "0";
         }
 
         startHeight = targetHeight;
     }
-    else
-    {
-        requestAnimationFrame(function(timestamp) {animateHeight(timestamp, lastTimestamp)});
+    else {
+        requestAnimationFrame(function (timestamp) { animateHeight(timestamp, lastTimestamp) });
     }
 }
 

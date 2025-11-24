@@ -72,7 +72,7 @@
                     <a onclick="toggleRegister()">New Player? <span>Create Account.</span></a>
                 </div>
             </div>
-            <button id="login-out-btn" onclick="login()">Login</button>
+            <button id="login-out-btn" onclick="handleLogInOut()">Login</button>
         </div>
 
         <!-- Navigation -->
@@ -133,13 +133,13 @@
                 <p class="title-sub">Retro vibes, modern pies. Power up your order.</p>
             </div>
         </div>
-        <div class="row">
+        <div id="top-product-row" class="row">
             <div id="top-product-container">
 
             </div>
             <div id="menu-link-container">
                 <div id="menu-link">
-
+                    <a onclick="navigate(navLinks.menu)">View The Full Menu</a>
                 </div>
             </div>
         </div>
@@ -304,5 +304,6 @@
 <script src="script/nav.js"></script>
 <script src="script/style.js"></script>
 <script src="script/login.js"></script>
+<script src="script/marquee.js"></script>
 
 </html>
