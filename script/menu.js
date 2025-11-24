@@ -1,3 +1,5 @@
+let storageMenuName = "pixel-menuJSON"
+
 let menuItems = [];
 console.log("script loaded")
 
@@ -80,11 +82,42 @@ class MenuItem {
 
 }
 
-// Load our template menu for now. Will need to wrap this inside a condition to check if the menu is in our storage then save it.
-fetch('data/menu-template.json').then(res => res.json()).then(data => {
-  data.menuItems.forEach(item => {
-    menuItems.push(new MenuItem(item.title, item.image, item.price, item.description, item.topProduct, item.promoted));
+function loadMenu(){
+  fetch('data/menu-template.json').then(res => res.json()).then(data => {
+    let storedMenu = localStorage.getItem(storageMenuName);
+    if(storedMenu)
+    {
+      JSON.parse(storedMenu).forEach(item => {
+        menuItems.push(new MenuItem(item.title, item.image, item.price, item.description, item.topProduct, item.promoted));
+        console.log(item);
+      })
+    }
+    else
+    {
+      data.menuItems.forEach(item => {
+        menuItems.push(new MenuItem(item.title, item.image, item.price, item.description, item.topProduct, item.promoted));
+      })
+    }
+    document.dispatchEvent(MenuItemsLoaded);
   })
-  document.dispatchEvent(MenuItemsLoaded);
-})
+}
 
+function saveMenu()
+{
+  let newMenu = JSON.stringify(menuItems);
+  localStorage.setItem(storageMenuName, newMenu);
+  reloadMenu();
+}
+
+function reloadMenu()
+{
+  menuItems = [];
+  let menuElements = Array.from(container.children);
+  menuElements = menuElements.concat(Array.from(document.getElementById("marquee-track").children));
+  menuElements = menuElements.concat(Array.from(document.getElementById("edit-grid").children));
+  menuElements = menuElements.concat(Array.from(topItemContainer.children));
+  menuElements.forEach(element => {element.remove()});
+  loadMenu();
+}
+
+loadMenu();

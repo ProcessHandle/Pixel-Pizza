@@ -82,6 +82,7 @@
             <a id="nav-menu" class="nav-link">Menu</a>
             <a id="nav-about" class="nav-link">About</a>
             <a id="nav-home" class="nav-link">Cart</a>
+            <a id="nav-edit" class="nav-link">Edit Menu</a>
         </div>
 
         <!-- Cart -->
@@ -158,6 +159,14 @@
         <h1 class="title">OUR PIZZA PALETTE</h1>
 
         <div id="menu-grid">
+
+        </div>
+    </div>
+
+    <div id="edit-menu-content" class="hidden">
+        <h1 class="title">Edit Menu</h1>
+        
+        <div id="edit-grid">
 
         </div>
     </div>
@@ -290,9 +299,6 @@
     <div id="history-content" class="hidden">
 
     </div>
-    <div id="edit-menu-content" class="hidden">
-
-    </div>
     <div id="sales-data-content" class="hidden">
 
     </div>
@@ -301,9 +307,9 @@
     </div>
 </body>
 <script src="script/menu.js"></script>
-<script src="script/nav.js"></script>
+<script src="script/nav.js" onload="navigate(navLinks.edit)"></script>
 <script src="script/style.js"></script>
 <script src="script/login.js"></script>
 <script src="script/marquee.js"></script>
-
+<script src="script/editmenu.js"></script>
 </html>
