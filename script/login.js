@@ -38,6 +38,7 @@ let regEmailInput = document.querySelector('#register-container input[name="emai
 let regPassInput = document.querySelector('#register-container input[name="pass"]'); regPassInput.type = "password";
 let regConfirmPassInput = document.querySelector('#register-container input[name="conf-pass"]'); regConfirmPassInput.type = "password";
 let loginMessage = document.getElementById("login-msg")
+let editMenu = document.getElementById("nav-edit")
 let animationLength = 250;
 let startHeight = 0;
 let accountStorage = () => JSON.parse(localStorage.getItem("Accounts") || "{}")
@@ -45,7 +46,14 @@ let saveStorage = o => localStorage.setItem("Accounts", JSON.stringify(o))
 let currentUser;
 let clearStorage = () => {localStorage.clear(); console.log("Cleared localStorage successfully.")} 
 
-function uiUpdate() {
+function uiUpdate(isAdmin) {
+    
+    if (isAdmin === "Reset") {
+        editMenu.classList.add("hidden")
+    } else {
+        editMenu.classList.remove("hidden")
+    }
+
     if (currentUser) {
         loginMessage.innerText = `Welcome ${currentUser.name}!`;
         loginButton.innerText = "Logout";
@@ -140,7 +148,7 @@ function createAccount(name, email, pass) {
 function handleLogInOut() {
     if (currentUser) {
         currentUser = null;
-        uiUpdate();
+        uiUpdate("Reset");
         statusMessage("Logged out successfully", 2000);
     } else {
         login();
@@ -164,7 +172,6 @@ function login() {
                 isAdmin: res.isAdmin
             };
             uiUpdate();
-            statusMessage(`Welcome ${res.Name}.`, 2000)
         } else {
             statusMessage(res.msg, 3000)
         }
