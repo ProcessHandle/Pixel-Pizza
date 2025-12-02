@@ -15,21 +15,21 @@ const MenuItemsLoaded = new CustomEvent("MenuItemsLoaded", {
   },
   bubbles: true,
   cancelable: true
-  });
+});
 
 class MenuItem {
-  constructor(title, imgUrl, price = 0, description = "", topProduct, promotedProduct) {
+  constructor(title, imgUrl, price = 0, description = "", topProduct, promotedProduct, sales = 0) {
     this.title = title;
     this.imgUrl = imgUrl;
     this.price = price;
     this.description = description;
-    if(topProduct !== undefined)
-    {
+    this.sales = sales;
+
+    if (topProduct !== undefined) {
       this.topProduct = topProduct;
     }
 
-    if(promotedProduct !== undefined)
-    {
+    if (promotedProduct !== undefined) {
       this.promoted = promotedProduct;
     }
 
@@ -65,14 +65,12 @@ class MenuItem {
 
   appendToDoc() {
     container.appendChild(this.element);
-    if(this.topProduct)
-    {
+    if (this.topProduct) {
       this.topProductElement = this.element.cloneNode(true);
       this.topProductElement.classList.add("card-large");
       topItemContainer.appendChild(this.topProductElement);
     }
-    if(this.promoted)
-    {
+    if (this.promoted) {
       this.promotedElement = this.element.cloneNode(true);
       this.promotedElement.classList.add("marquee-card");
       promotedItemContainer.appendChild(this.promotedElement);
@@ -82,41 +80,37 @@ class MenuItem {
 
 }
 
-function loadMenu(){
+function loadMenu() {
   fetch('data/menu-template.json').then(res => res.json()).then(data => {
     let storedMenu = localStorage.getItem(storageMenuName);
-    if(storedMenu)
-    {
+    if (storedMenu) {
       JSON.parse(storedMenu).forEach(item => {
         menuItems.push(new MenuItem(item.title, item.image, item.price, item.description, item.topProduct, item.promoted));
         console.log(item);
       })
     }
-    else
-    {
+    else {
       data.menuItems.forEach(item => {
-        menuItems.push(new MenuItem(item.title, item.image, item.price, item.description, item.topProduct, item.promoted));
+        menuItems.push(new MenuItem(item.title, item.image, item.price, item.description, item.topProduct, item.promoted, item.sales));
       })
     }
     document.dispatchEvent(MenuItemsLoaded);
   })
 }
 
-function saveMenu()
-{
+function saveMenu() {
   let newMenu = JSON.stringify(menuItems);
   localStorage.setItem(storageMenuName, newMenu);
   reloadMenu();
 }
 
-function reloadMenu()
-{
+function reloadMenu() {
   menuItems = [];
   let menuElements = Array.from(container.children);
   menuElements = menuElements.concat(Array.from(document.getElementById("marquee-track").children));
   menuElements = menuElements.concat(Array.from(document.getElementById("edit-grid").children));
   menuElements = menuElements.concat(Array.from(topItemContainer.children));
-  menuElements.forEach(element => {element.remove()});
+  menuElements.forEach(element => { element.remove() });
   loadMenu();
 }
 

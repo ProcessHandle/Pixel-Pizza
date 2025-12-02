@@ -81,7 +81,8 @@
             <a id="nav-home" class="nav-link">Home</a>
             <a id="nav-menu" class="nav-link">Menu</a>
             <a id="nav-about" class="nav-link">About</a>
-            <a id="nav-home" class="nav-link">Cart</a>
+            <a id="nav-cart" class="nav-link">Cart</a>
+            <a id="nav-sales" class="nav-link hidden">Sales Data</a>
             <a id="nav-edit" class="nav-link hidden">Edit Menu</a>
         </div>
 
@@ -300,6 +301,33 @@
 
     </div>
     <div id="sales-data-content" class="hidden">
+        <div id="sales-data-inner">
+            <h1 class="title">SALES DATA</h1>
+
+            <div class="sales-kpi-row">
+                <div class="sales-kpi-card">
+                    <span class="kpi-label">Total Sold</span>
+                    <span id="kpi-total" class="kpi-value">0</span>
+                </div>
+
+                <div class="sales-kpi-card top-item-card">
+                    <span class="kpi-label">Top Item</span>
+                    <span id="kpi-top" class="kpi-value">—</span>
+                </div>
+
+                <div class="sales-kpi-card">
+                    <span class="kpi-label">Least Popular</span>
+                    <span id="kpi-low" class="kpi-value">—</span>
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="sales-doughnut"></canvas>
+            </div>
+
+            <h2 class="sub-title">ITEM BREAKDOWN</h2>
+            <div id="sales-item-grid"></div>
+        </div>
 
     </div>
     <div class="sub">
@@ -307,9 +335,11 @@
     </div>
 </body>
 <script src="script/menu.js"></script>
-<script src="script/nav.js" onload="navigate(navLinks.edit)"></script>
+<script src="script/nav.js"></script>
 <script src="script/style.js"></script>
 <script src="script/login.js"></script>
 <script src="script/marquee.js"></script>
 <script src="script/editmenu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script/salesdata.js"></script>
 </html>

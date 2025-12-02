@@ -2,14 +2,16 @@ content = {
     home:document.getElementById("home-content"),
     menu:document.getElementById("menu-content") ,
     about:document.getElementById("about-content"),
-    edit:document.getElementById("edit-menu-content")
+    edit:document.getElementById("edit-menu-content"),
+    sales: document.getElementById("sales-data-content")
 }
 
 navLinks = {
     home:document.getElementById("nav-home"),
     menu:document.getElementById("nav-menu"),
     about:document.getElementById("nav-about"),
-    edit:document.getElementById("nav-edit")
+    edit:document.getElementById("nav-edit"), 
+    sales: document.getElementById("nav-sales")
 }
 
 for(i = 0; i<document.getElementsByClassName("nav-link").length; i++)
@@ -35,6 +37,7 @@ function navigate(item)
         if(key === thisKey)
         {
             content[key].classList.remove("hidden");
+            if(key === "sales") document.dispatchEvent(new Event("SalesDataLoaded"));
         }
         else
         {
