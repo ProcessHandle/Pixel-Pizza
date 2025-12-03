@@ -40,12 +40,108 @@ let regConfirmPassInput = document.querySelector('#register-container input[name
 let loginMessage = document.getElementById("login-msg")
 let editMenu = document.getElementById("nav-edit")
 let saleData = document.getElementById("nav-sales")
+let cartItems = document.getElementById("cart-items")
 let animationLength = 250;
 let startHeight = 0;
 let accountStorage = () => JSON.parse(localStorage.getItem("Accounts") || "{}")
 let saveStorage = o => localStorage.setItem("Accounts", JSON.stringify(o))
-let currentUser;
-let clearStorage = () => {localStorage.clear(); console.log("Cleared localStorage successfully.")} 
+let currentUser
+let clearStorage = () => { localStorage.clear(); console.log("Cleared localStorage successfully.") }
+
+function getOrderHistory() {
+    return JSON.parse(localStorage.getItem("History") || "{}");
+}
+
+function updOrderHistory(obj) {
+    localStorage.setItem("History", JSON.stringify(obj));
+}
+
+function updCartItems(action, data = {}) {
+    if (!currentUser) return statusMessage("Login required.", 2000);
+
+    if (!currentUser.cart) currentUser.cart = [];
+
+    switch (action) {
+        case "add":
+            currentUser.cart.push({
+                item: data.item,
+                price: data.price,
+                qty: data.qty || 1,
+                img: data.img || null,
+                added: Date.now()
+            });
+            break;
+
+        case "remove":
+            if (typeof data.index === "number") {
+                currentUser.cart.splice(data.index, 1);
+            }
+            break;
+
+        case "modify":
+            if (typeof data.index === "number") {
+                currentUser.cart[data.index].qty = data.qty;
+            }
+            break;
+
+        case "clear":
+            currentUser.cart = [];
+            break;
+    }
+
+    let accounts = accountStorage();
+    accounts[currentUser.email].cart = currentUser.cart;
+    saveStorage(accounts);
+
+    renderCart();
+}
+
+function getCartItems() {
+    if (!currentUser) return [];
+    if (!currentUser.cart) currentUser.cart = [];
+    return currentUser.cart;
+}
+
+function renderCart() {
+    let list = getCartItems()
+    cartItems.innerHTML = ""
+
+    if (list.length === 0) {
+        return
+    };
+
+    list.forEach((e, i) => {
+        let div = document.createElement("div")
+        div.className = "cart-item"
+        div.dataset.index = i
+        div.dataset.price = e.price
+
+        div.innerHTML = `
+            <div class="thumb">
+                <img src="${e.img || 'https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png'}" alt="Item">
+            </div>
+            <div class="ci-main">
+                <div class="ci-title-row">
+                    <span class="ci-name">${e.item}</span>
+                    <button class="ci-remove">✕</button>
+                </div>
+                <span class="ci-price-line">$${Number(e.price).toFixed(2)}</span>
+                <div class="ci-bottom">
+                    <div class="qty">
+                        <button class="qbtn minus">−</button>
+                        <input class="qval" type="number" min="1" value="${e.qty || 1}">
+                        <button class="qbtn plus">+</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        cartItems.appendChild(div)
+    });
+
+    loadAtcButtons()
+}
+
 
 function uiUpdate(isAdmin) {
     
@@ -71,6 +167,13 @@ function uiUpdate(isAdmin) {
             registerContainer.classList.add("hidden");
         }
     }
+
+    if (currentUser) {
+        renderCart()
+    } else if (cartItems) {
+        cartItems.innerHTML = "";
+    }
+
 }
 
 function statusMessage(msg, t = 3000) {
@@ -112,7 +215,26 @@ function loginUser(email, password) {
     let admin = store.isAdmin || false
     email = email.toLowerCase()
     console.log(`Email: ${email} , Pass: ${password}`)
-    if (email === "test" && password === "test") { return { status_ok: true, isAdmin: true, Name: "Test Account", msg: "Test account passed conditions" } }
+    if (email === "test" && password === "test") {
+        let acc = accountStorage();
+        if (!acc["test"]) {
+            acc["test"] = {
+                password: letshash("test"),
+                name: "Test Account",
+                created: Date.now(),
+                cart: []
+            };
+            saveStorage(acc);
+        }
+
+        return {
+            status_ok: true,
+            isAdmin: true,
+            Name: "Test Account",
+            cart: acc["test"].cart,
+            msg: "Test account passed conditions"
+        };
+    }
     if (!store[email]) {
         return { status_ok: false, msg: "Account not found." };
     }
@@ -124,8 +246,9 @@ function loginUser(email, password) {
     }
 
     if (admin) { }
+    let cart = store[email].cart || [];
 
-    return { status_ok: true, isAdmin: admin, Name: store[email].name };
+    return { status_ok: true, isAdmin: admin, Name: store[email].name, cart: cart };
 }
 
 function createAccount(name, email, pass) {
@@ -141,7 +264,8 @@ function createAccount(name, email, pass) {
     store[email] = {
         password: hashed,
         name: name,
-        created: Date.now()
+        created: Date.now(),
+        cart: []
     };
 
     saveStorage(store);
@@ -173,7 +297,8 @@ function login() {
             currentUser = {
                 email: email,
                 name: res.Name,
-                isAdmin: res.isAdmin
+                isAdmin: res.isAdmin,
+                cart: res.cart
             };
             uiUpdate();
         } else {

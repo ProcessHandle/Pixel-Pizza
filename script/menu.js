@@ -112,5 +112,33 @@ function reloadMenu() {
   menuElements.forEach(element => { element.remove() });
   loadMenu();
 }
+document.addEventListener("MenuItemsLoaded", () => {
+    loadAtcButtons();
+});
+
+function loadAtcButtons() {
+    let buttons = document.querySelectorAll(".add-cart-btn");
+
+    buttons.forEach(btn => {
+        btn.onclick = () => {
+            let title = btn.dataset.title;
+            let price = Number(btn.dataset.price);
+            
+            let parent = btn.closest(".card, .card-large, .marquee-card");
+            let qtyInput = parent.querySelector(".qval");
+            let qty = qtyInput ? Number(qtyInput.value) : 1;
+
+            let imgElem = parent.querySelector("img");
+            let imgSrc = imgElem ? imgElem.src : null;
+
+            updCartItems("add", {
+                item: title,
+                price: price,
+                qty: qty,
+                img: imgSrc
+            });
+        };
+    });
+}
 
 loadMenu();
