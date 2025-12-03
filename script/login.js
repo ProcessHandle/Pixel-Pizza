@@ -39,6 +39,7 @@ let regPassInput = document.querySelector('#register-container input[name="pass"
 let regConfirmPassInput = document.querySelector('#register-container input[name="conf-pass"]'); regConfirmPassInput.type = "password";
 let loginMessage = document.getElementById("login-msg")
 let editMenu = document.getElementById("nav-edit")
+let saleData = document.getElementById("nav-sales")
 let animationLength = 250;
 let startHeight = 0;
 let accountStorage = () => JSON.parse(localStorage.getItem("Accounts") || "{}")
@@ -50,8 +51,10 @@ function uiUpdate(isAdmin) {
     
     if (isAdmin === "Reset") {
         editMenu.classList.add("hidden")
+        saleData.classList.add("hidden")
     } else {
         editMenu.classList.remove("hidden")
+        saleData.classList.remove("hidden")
     }
 
     if (currentUser) {
@@ -147,6 +150,7 @@ function createAccount(name, email, pass) {
 
 function handleLogInOut() {
     if (currentUser) {
+        if (currentUser.isAdmin) navigate(navLinks.home)
         currentUser = null;
         uiUpdate("Reset");
         statusMessage("Logged out successfully", 2000);

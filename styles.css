@@ -1195,6 +1195,191 @@ h4 {
     text-decoration: underline;
 }
 
+#sales-data-inner {
+    padding-top: 80px;
+}
+
+.sales-kpi-row {
+    margin: 30px 0 40px;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.sales-kpi-card {
+    position: relative;
+    flex: 0.75;
+    min-width: 150px;
+    background: var(--bg-comp);
+    border: 1px solid var(--divider);
+    padding: 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+    text-align: center;
+    transition: .25s ease;
+    transform: scale(var(--scale, 1));
+    z-index: 1;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sales-kpi-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: inherit;
+    background: transparent;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    transition: .25s ease;
+    z-index: -1;
+}
+
+.sales-kpi-card:hover {
+    --scale: 1.01;
+}
+
+.sales-kpi-card:hover::before {
+    background: linear-gradient(90deg, var(--retrowave-pink), var(--retrowave-pink));
+}
+
+.sales-kpi-card:hover .kpi-value {
+    background: linear-gradient(90deg, var(--retrowave-pink), var(--retrowave-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.kpi-label {
+    display: block;
+    font-size: 12px;
+    color: var(--dim);
+    margin-bottom: 6px;
+}
+
+.kpi-value {
+    display: block;
+    font-family: "Press Start 2P";
+    font-size: 20px;
+    background: linear-gradient(90deg, var(--title-grad-start), var(--title-grad-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.top-item-card {
+    position: relative;
+    z-index: 120;
+    --scale: 1.13;
+}
+
+.top-item-card::before {
+    background: linear-gradient(65deg, var(--title-grad-end), var(--retrowave-pink));
+}
+
+.top-item-card .kpi-value {
+    font-size: 22px;
+    background: linear-gradient(-75deg, var(--title-grad-end), var(--retrowave-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.top-item-card .kpi-label {
+    font-size: 13px;
+}
+
+.top-item-card:hover {
+    --scale: 1.14;
+}
+
+.top-item-card:hover::before {
+    background: linear-gradient(90deg, var(--title-grad-start), var(--glorange));
+}
+
+.top-item-card:hover .kpi-value {
+    background: linear-gradient(90deg, var(--title-grad-start), var(--glorange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sales-kpi-card:not(.top-item-card):hover {
+    border-color: var(--retrowave-pink);
+    box-shadow: 0 0 16px rgba(255, 64, 129, 0.25);
+}
+
+.sales-kpi-card:not(.top-item-card):hover .kpi-value {
+    background: linear-gradient(90deg, var(--retrowave-pink), var(--retrowave-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.chart-wrapper {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto 60px;
+    padding: 20px;
+    background: var(--bg-comp);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+}
+
+.sub-title {
+    font-family: "Press Start 2P";
+    font-size: 18px;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, var(--title-grad-start), var(--retrowave-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#sales-item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.sales-item-card {
+    background: var(--bg-comp);
+    border: 1px solid var(--divider);
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+    transition: .25s ease;
+}
+
+.sales-item-card:hover {
+    border-color: var(--glorange);
+    box-shadow: 0 0 16px rgba(255, 181, 74, 0.25);
+}
+
+.sales-item-card img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid var(--card-img-border);
+}
+
+.sales-item-name {
+    font-family: "Press Start 2P";
+    font-size: 10px;
+    margin-bottom: 6px;
+}
+
+.sales-item-count {
+    font-size: 14px;
+    color: var(--dim);
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;

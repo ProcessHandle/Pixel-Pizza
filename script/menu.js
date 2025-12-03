@@ -18,11 +18,13 @@ const MenuItemsLoaded = new CustomEvent("MenuItemsLoaded", {
 });
 
 class MenuItem {
-  constructor(title, imgUrl, price = 0, description = "", topProduct, promotedProduct) {
+  constructor(title, imgUrl, price = 0, description = "", topProduct, promotedProduct, sales = 0) {
     this.title = title;
     this.imgUrl = imgUrl;
     this.price = price;
     this.description = description;
+    this.sales = sales;
+
     if (topProduct !== undefined) {
       this.topProduct = topProduct;
     }
@@ -89,7 +91,7 @@ function loadMenu() {
     }
     else {
       data.menuItems.forEach(item => {
-        menuItems.push(new MenuItem(item.title, item.image, item.price, item.description, item.topProduct, item.promoted));
+        menuItems.push(new MenuItem(item.title, item.image, item.price, item.description, item.topProduct, item.promoted, item.sales));
       })
     }
     document.dispatchEvent(MenuItemsLoaded);
