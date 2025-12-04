@@ -3,7 +3,8 @@ content = {
     menu:document.getElementById("menu-content") ,
     about:document.getElementById("about-content"),
     edit:document.getElementById("edit-menu-content"),
-    sales: document.getElementById("sales-data-content")
+    sales: document.getElementById("sales-data-content"),
+    history: document.getElementById("history-content")
 }
 
 navLinks = {
@@ -11,7 +12,8 @@ navLinks = {
     menu:document.getElementById("nav-menu"),
     about:document.getElementById("nav-about"),
     edit:document.getElementById("nav-edit"), 
-    sales: document.getElementById("nav-sales")
+    sales: document.getElementById("nav-sales"),
+    history: document.getElementById("nav-history")
 }
 
 for(i = 0; i<document.getElementsByClassName("nav-link").length; i++)
