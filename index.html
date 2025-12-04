@@ -311,8 +311,37 @@
                 <button>Order Again</button>
                 </div>
             </div>
-            <div>
-                <a class="order-details">Show Details</a>
+            <div class="show-details">
+                <a>Show Details</a>
+            </div>
+        </div>
+
+        <div class="order">
+            <img src="https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png" alt="pizza">
+            <div class="order-info">
+                <div class="order-info-grid">
+                <p>Date: <span>8/12/25</span></p>
+                <p>Total: <span>$123.23</span></p>
+                <p>Quantity: <span>6</span></p>
+                <button>Order Again</button>
+                </div>
+            </div>
+            <div class="order-details collapsed">
+                <div class="order-item">
+                    <img src="https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png" alt="pizza">
+                    <p>Quantity: <span>6</span></p>
+                    <p>Price: <span>$50</span></p>
+                    <p>Total Price: <span>$259</span></p>
+                </div>
+                <div class="order-item">
+                    <img src="https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png" alt="pizza">
+                    <p>Quantity: <span>6</span></p>
+                    <p>Price: <span>$50</span></p>
+                    <p>Total Price: <span>$259</span></p>
+                </div>
+            </div>
+            <div class="show-details">
+                <a onclick="expandOrderHistory(this)">Show Details</a>
             </div>
         </div>
 
@@ -357,6 +386,7 @@
 <script src="script/login.js"></script>
 <script src="script/marquee.js"></script>
 <script src="script/editmenu.js" onload="navigate(navLinks.history)"></script>
+<script src="script/history.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script/salesdata.js"></script>
 </html>
