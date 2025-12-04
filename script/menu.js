@@ -99,10 +99,9 @@ function loadMenu() {
   })
 }
 
-function saveMenu() {
+function storeMenu() {
   let newMenu = JSON.stringify(menuItems);
   localStorage.setItem(storageMenuName, newMenu);
-  reloadMenu();
 }
 
 function reloadMenu() {

@@ -43,6 +43,7 @@ let saleData = document.getElementById("nav-sales")
 let cartItems = document.getElementById("cart-items")
 let cartTotal = document.getElementById("cart-total")
 let currentTotal = 0
+let orderHistory = document.getElementById("nav-history")
 let animationLength = 250;
 let startHeight = 0;
 let accountStorage = () => JSON.parse(localStorage.getItem("Accounts") || "{}")
@@ -51,12 +52,17 @@ let currentUser
 let guestCart = []
 let clearStorage = () => { localStorage.clear(); console.log("Cleared localStorage successfully.") }
 
+let viewingPermissions = {
+    admin: [editMenu, saleData],
+    user: [orderHistory]
+}
+
 function getOrderHistory() {
-    return JSON.parse(currentUser.History || "{}");
+    return currentUser.history ? currentUser.history : {};
 }
 
 function updOrderHistory(obj) {
-    currentUser.History.push(obj)
+    currentUser.history = obj;
 }
 
 function updCartTotal() {
@@ -180,13 +186,13 @@ function renderCart() {
 
 
 function uiUpdate(isAdmin) {
-
-    if (isAdmin === "Reset") {
-        editMenu.classList.add("hidden")
-        saleData.classList.add("hidden")
+    
+    if (!isAdmin) {
+        viewingPermissions.admin.forEach(item => {item.classList.add("hidden")});
+        viewingPermissions.user.forEach(item => {item.classList.remove("hidden")});
     } else {
-        editMenu.classList.remove("hidden")
-        saleData.classList.remove("hidden")
+        viewingPermissions.admin.forEach(item => {item.classList.remove("hidden")});
+        viewingPermissions.user.forEach(item => {item.classList.add("hidden")});
     }
 
     if (currentUser) {
@@ -309,6 +315,7 @@ function createAccount(name, email, pass) {
         password: hashed,
         name: name,
         created: Date.now(),
+        isAdmin: false,
         cart: []
     };
 
@@ -320,7 +327,7 @@ function handleLogInOut() {
     if (currentUser) {
         if (currentUser.isAdmin) navigate(navLinks.home)
         currentUser = null;
-        uiUpdate("Reset");
+        uiUpdate(false);
         updCartTotal();
         statusMessage("Logged out successfully", 2000);
     } else {
@@ -343,9 +350,10 @@ function login() {
                 email: email,
                 name: res.Name,
                 isAdmin: res.isAdmin,
-                cart: res.cart
+                cart: res.cart,
+                history: res.history
             };
-            uiUpdate();
+            uiUpdate(currentUser.isAdmin);
         } else {
             statusMessage(res.msg, 3000)
         }
@@ -381,7 +389,7 @@ function login() {
                         name: loginRes.Name,
                         isAdmin: loginRes.isAdmin
                     };
-                    uiUpdate();
+                    uiUpdate(currentUser.isAdmin);
                     statusMessage(`Welcome ${loginRes.Name}!`, 2000);
 
                     regNameInput.value = "";
