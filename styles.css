@@ -1,6 +1,7 @@
 :root {
     --bg: #000;
     --bg-comp: #1a1c23;
+    --bg-comp2:rgb(38, 41, 51);
     --trp-bg: rgba(11, 12, 16, 0.25);
     --ink: #e9edf1;
     --dim: #a9b1bb;
@@ -600,12 +601,43 @@ a span {
     box-sizing: border-box;
     perspective: 800px;
     max-width: 400px;
+    cursor: pointer;
 }
 
+.tooltiptext {
+  visibility: hidden; 
+  width: 100%;
+  background-color: var(--bg-comp2);
+  color: #ffffff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 105%; 
+  /* transform: translateY(-125%); */
+  z-index: 999; 
+  border: solid 1px var(--glorange);
+}
+
+.tooltiptext::after {
+    content: ""; 
+    position: absolute;
+    top: 100%; 
+    left: 50%;
+    margin-left: -6px; 
+    border-width: 6px; 
+    border-style: solid;
+
+    border-color: var(--glorange) transparent transparent transparent;
+}
 .card:hover {
     border-color: var(--glorange);
     box-shadow: 0 0 18px rgba(255, 181, 74, 0.25);
     transform: translateY(-4px);
+}
+
+.card:hover .tooltiptext {
+  visibility: visible;
 }
 
 .card img {
@@ -626,7 +658,7 @@ a span {
 
 .card:hover img {
     transform: rotateX(-12deg) rotateY(12deg) scale(1.01);
-    filter: blur(0.5px);
+    filter: blur(0.1px);
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
 }
 

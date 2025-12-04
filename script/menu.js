@@ -45,8 +45,9 @@ class MenuItem {
     // this.element.style.backgroundImage=this.imgUrl; //possibly delete later
 
     this.element.innerHTML =
-      `<h2>${this.title}</h2>
-      <img src="${'https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png'}" alt="pizza">
+      `<span class="tooltiptext">${this.description}</span>
+      <h2>${this.title}</h2>
+      <img src="${this.imgUrl}" alt="pizza">
       <div class="card-info">
         <p class="card-price">$${this.price}</p>
         <div class="qty">
@@ -113,32 +114,80 @@ function reloadMenu() {
   loadMenu();
 }
 document.addEventListener("MenuItemsLoaded", () => {
-    loadAtcButtons();
+  loadAtcButtons();
+  startMenuItemEvents();
 });
 
-function loadAtcButtons() {
-    let buttons = document.querySelectorAll(".add-cart-btn");
+function doQtyControls(minusBtn, plusBtn, qtyInput, changes = null) {
+  minusBtn.onclick = () => {
+    qtyInput.value = Math.max(1, Number(qtyInput.value) - 1)
+    if (changes) changes(Number(qtyInput.value))
+  };
 
-    buttons.forEach(btn => {
-        btn.onclick = () => {
-            let title = btn.dataset.title;
-            let price = Number(btn.dataset.price);
-            
-            let parent = btn.closest(".card, .card-large, .marquee-card");
-            let qtyInput = parent.querySelector(".qval");
-            let qty = qtyInput ? Number(qtyInput.value) : 1;
+  plusBtn.onclick = () => {
+    qtyInput.value = Number(qtyInput.value) + 1
+    if (changes) changes(Number(qtyInput.value))
+  };
 
-            let imgElem = parent.querySelector("img");
-            let imgSrc = imgElem ? imgElem.src : null;
-
-            updCartItems("add", {
-                item: title,
-                price: price,
-                qty: qty,
-                img: imgSrc
-            });
-        };
-    });
+  qtyInput.changes = () => {
+    qtyInput.value = Math.max(1, Number(qtyInput.value))
+    if (changes) changes(Number(qtyInput.value))
+  };
 }
+
+function loadAtcButtons() {
+  let buttons = document.querySelectorAll(".add-cart-btn");
+
+  buttons.forEach(btn => {
+    btn.onclick = () => {
+      let title = btn.dataset.title;
+      let price = Number(btn.dataset.price);
+
+      let parent = btn.closest(".card, .card-large, .marquee-card");
+      let qtyInput = parent.querySelector(".qval");
+      let qty = qtyInput ? Number(qtyInput.value) : 1;
+
+      let imgElem = parent.querySelector("img");
+      let imgSrc = imgElem ? imgElem.src : null;
+
+      updCartItems("add", {
+        item: title,
+        price: price,
+        qty: qty,
+        img: imgSrc
+      });
+    };
+  });
+}
+
+function startCartItemEvents() {
+  let items = cartItems.querySelectorAll(".cart-item")
+
+  items.forEach((item, index) => {
+    let removeBtn = item.querySelector(".ci-remove")
+    let minusBtn = item.querySelector(".minus")
+    let plusBtn = item.querySelector(".plus")
+    let qtyInput = item.querySelector(".qval")
+
+    removeBtn.onclick = () => {
+      updCartItems("remove", { index })
+    };
+
+    doQtyControls(minusBtn, plusBtn, qtyInput, (newQty) => {
+      updCartItems("modify", { index, qty: newQty })
+    });
+  });
+}
+
+function startMenuItemEvents() {
+  document.querySelectorAll(".card .qty").forEach(q => {
+    let minusBtn = q.querySelector(".minus");
+    let plusBtn = q.querySelector(".plus");
+    let qtyInput = q.querySelector(".qval");
+
+    doQtyControls(minusBtn, plusBtn, qtyInput);
+  });
+}
+
 
 loadMenu();
