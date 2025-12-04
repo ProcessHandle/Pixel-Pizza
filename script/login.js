@@ -41,65 +41,101 @@ let loginMessage = document.getElementById("login-msg")
 let editMenu = document.getElementById("nav-edit")
 let saleData = document.getElementById("nav-sales")
 let cartItems = document.getElementById("cart-items")
+let cartTotal = document.getElementById("cart-total")
+let currentTotal = 0
 let animationLength = 250;
 let startHeight = 0;
 let accountStorage = () => JSON.parse(localStorage.getItem("Accounts") || "{}")
 let saveStorage = o => localStorage.setItem("Accounts", JSON.stringify(o))
 let currentUser
+let guestCart = []
 let clearStorage = () => { localStorage.clear(); console.log("Cleared localStorage successfully.") }
 
 function getOrderHistory() {
-    return JSON.parse(localStorage.getItem("History") || "{}");
+    return JSON.parse(currentUser.History || "{}");
 }
 
 function updOrderHistory(obj) {
-    localStorage.setItem("History", JSON.stringify(obj));
+    currentUser.History.push(obj)
 }
 
-function updCartItems(action, data = {}) {
-    if (!currentUser) return statusMessage("Login required.", 2000);
+function updCartTotal() {
+    // Reworked for guests
+    let tot = 0;
 
-    if (!currentUser.cart) currentUser.cart = [];
+    let cart = currentUser?.cart || guestCart;
+
+    if (!cart || cart.length === 0) {
+        cartTotal.innerText = "$0.00";
+        currentTotal = 0;
+        return;
+    }
+
+    cart.forEach(i => {
+        tot += (i.price * i.qty);
+    });
+
+    currentTotal = tot;
+    cartTotal.innerText = `$${tot.toFixed(2)}`;
+}
+
+
+function updCartItems(action, data = {}) {
+    let loggedIn = !!currentUser;
+    let cart = loggedIn ? (currentUser.cart || []) : guestCart;
 
     switch (action) {
         case "add":
-            currentUser.cart.push({
-                item: data.item,
-                price: data.price,
-                qty: data.qty || 1,
-                img: data.img || null,
-                added: Date.now()
-            });
+            let dupe = cart.find(c => c.item === data.item);
+
+            if (dupe) {
+                dupe.qty += data.qty || 1
+            } else {
+                cart.push({
+                    item: data.item,
+                    price: data.price,
+                    qty: data.qty || 1,
+                    img: data.img,
+                    added: Date.now()
+                });
+            }
+
+            updCartTotal();
             break;
 
         case "remove":
             if (typeof data.index === "number") {
-                currentUser.cart.splice(data.index, 1);
+                cart.splice(data.index, 1);
+                updCartTotal();
             }
             break;
 
         case "modify":
             if (typeof data.index === "number") {
-                currentUser.cart[data.index].qty = data.qty;
+                cart[data.index].qty = data.qty;
+                updCartTotal();
             }
             break;
 
         case "clear":
-            currentUser.cart = [];
+            cart = [];
+            cartTotal.innerText = `$0.00`
+            currentTotal = 0
             break;
     }
-
-    let accounts = accountStorage();
-    accounts[currentUser.email].cart = currentUser.cart;
-    saveStorage(accounts);
+    if (loggedIn) {
+        let accounts = accountStorage();
+        accounts[currentUser.email].cart = cart;
+        saveStorage(accounts);
+    }
 
     renderCart();
 }
 
 function getCartItems() {
-    if (!currentUser) return [];
-    if (!currentUser.cart) currentUser.cart = [];
-    return currentUser.cart;
+    let loggedIn = !!currentUser;
+    let cart = loggedIn ? (currentUser.cart || []) : guestCart;
+    return cart;
 }
 
 function renderCart() {
@@ -138,13 +174,13 @@ function renderCart() {
 
         cartItems.appendChild(div)
     });
-
-    loadAtcButtons()
+    updCartTotal()
+    startCartItemEvents()
 }
 
 
 function uiUpdate(isAdmin) {
-    
+
     if (isAdmin === "Reset") {
         editMenu.classList.add("hidden")
         saleData.classList.add("hidden")
@@ -235,11 +271,19 @@ function loginUser(email, password) {
             msg: "Test account passed conditions"
         };
     }
+
     if (!store[email]) {
         return { status_ok: false, msg: "Account not found." };
     }
 
     let hashed = letshash(password);
+    if (guestCart.length >= 1) {
+        if (confirm("Logging will result in your cart being cleared or overwritten. Would you like to continue?")) { 
+
+        } else {
+            return
+        }
+    }
 
     if (hashed !== store[email].password) {
         return { status_ok: false, msg: "Incorrect password." };
@@ -277,6 +321,7 @@ function handleLogInOut() {
         if (currentUser.isAdmin) navigate(navLinks.home)
         currentUser = null;
         uiUpdate("Reset");
+        updCartTotal();
         statusMessage("Logged out successfully", 2000);
     } else {
         login();

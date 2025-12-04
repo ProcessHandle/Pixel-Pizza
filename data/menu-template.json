@@ -2,7 +2,7 @@
   "menuItems": [
     {
       "title": "The Final Boss",
-      "image": "images/temp-pizza.png",
+      "image": "images/final-boss-pizza.png",
       "price": "50.00",
       "description": "Sausage, bacon, ham, pepperoni, ground beef.",
       "topProduct": true,
@@ -10,7 +10,7 @@
     },
     {
       "title": "Power Up Pepperoni",
-      "image": "images/temp-pizza.png",
+      "image": "images/power-up-pepperoni-pizza.png",
       "price": "50.00",
       "description": "Classic pepperoni overload + mozzarella on a crisp 16-bit crust.",
       "promoted": true,
@@ -18,7 +18,7 @@
     },
     {
       "title": "Mushroom Kingdom Special",
-      "image": "images/temp-pizza.png",
+      "image": "images/mushroom-kingdom-special-pizza.png",
       "price": "50.00",
       "description": "Mushrooms, spinach, roasted garlic, mozzarella, white sauce.",
       "promoted": true,
@@ -26,7 +26,7 @@
     },
     {
       "title": "Ender Dragon Fire",
-      "image": "images/temp-pizza.png",
+      "image": "images/ender-dragon-fire-pizza.png",
       "price": "50.00",
       "description": "Buffalo chicken, jalapeños, red pepper flakes, spicy marinara.",
       "promoted": true,
@@ -34,21 +34,21 @@
     },
     {
       "title": "BBQ Chicken Jockey",
-      "image": "images/temp-pizza.png",
+      "image": "images/bbq-chicken-jockey-pizza.png",
       "price": "50.00",
       "description": "BBQ chicken, red onions, smoked gouda, cilantro.",
       "sales": 58
     },
     {
       "title": "Arcane Alfredo",
-      "image": "images/temp-pizza.png",
+      "image": "images/arcane-alfredo-pizza.png",
       "price": "50.00",
       "description": "Alfredo base, chicken, spinach, parmesan, roasted garlic.",
       "sales": 67
     },
     {
       "title": "Bomb Bites",
-      "image": "images/temp-pizza.png",
+      "image": "images/bomb-bites-side.png",
       "price": "500.00",
       "description": "Cheesy jalapeño poppers.",
       "sales": 142
