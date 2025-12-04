@@ -84,6 +84,7 @@
             <a id="nav-cart" class="nav-link">Cart</a>
             <a id="nav-sales" class="nav-link hidden">Sales Data</a>
             <a id="nav-edit" class="nav-link hidden">Edit Menu</a>
+            <a id="nav-history" class="nav-link hidden">Order History</a>
         </div>
 
         <!-- Cart -->
@@ -298,6 +299,22 @@
 
     </div>
     <div id="history-content" class="hidden">
+        <h1 class="title">Order History</h1>
+        <h2>Past Orders:</h2>
+        <div class="order">
+            <img src="https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png" alt="pizza">
+            <div class="order-info">
+                <div class="order-info-grid">
+                <p>Date: <span>8/12/25</span></p>
+                <p>Total: <span>$123.23</span></p>
+                <p>Quantity: <span>6</span></p>
+                <button>Order Again</button>
+                </div>
+            </div>
+            <div>
+                <a class="order-details">Show Details</a>
+            </div>
+        </div>
 
     </div>
     <div id="sales-data-content" class="hidden">
@@ -339,7 +356,7 @@
 <script src="script/style.js"></script>
 <script src="script/login.js"></script>
 <script src="script/marquee.js"></script>
-<script src="script/editmenu.js"></script>
+<script src="script/editmenu.js" onload="navigate(navLinks.history)"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script/salesdata.js"></script>
 </html>

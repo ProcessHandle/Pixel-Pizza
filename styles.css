@@ -1380,6 +1380,41 @@ h4 {
     color: var(--dim);
 }
 
+#history-content h2 {
+    background: linear-gradient(to bottom, var(--title-grad-start), var(--retro-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#history-content img {
+    display: inline-block;
+    width: 75px;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--card-img-border);
+    background:
+        repeating-linear-gradient(0deg, var(--card-img-bg-grid) 0 2px, transparent 2px 6px),
+        repeating-linear-gradient(90deg, var(--card-img-bg-grid) 0 2px, transparent 2px 6px),
+        radial-gradient(160px 100px at 30% 20%, rgba(216, 110, 4, .12), transparent 60%);
+    object-fit: contain;
+    transition: transform 0.25s ease, transform 0.35s ease, filter 0.35s ease;
+    transform-style: preserve-3d;
+
+}
+
+#history-content img:hover {
+    transform: rotateX(-12deg) rotateY(12deg) scale(1.01);
+    filter: blur(0.5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+}
+
+#history-content .order-info {
+    display: inline-block;
+    width: calc(100% - 100px);
+}
+
+
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
