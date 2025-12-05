@@ -161,9 +161,11 @@ function loadAtcButtons() {
 }
 
 function startCartItemEvents() {
-  let items = cartItems.querySelectorAll(".cart-item")
+  let items = document.querySelectorAll(".cart-item, .checkout-item")
+  console.log(items);
 
-  items.forEach((item, index) => {
+  items.forEach((item) => {
+    let index = Number(item.dataset.index)
     let removeBtn = item.querySelector(".ci-remove")
     let minusBtn = item.querySelector(".minus")
     let plusBtn = item.querySelector(".plus")

@@ -1,7 +1,7 @@
 :root {
     --bg: #000;
     --bg-comp: #1a1c23;
-    --bg-comp2:rgb(38, 41, 51);
+    --bg-comp2: rgb(38, 41, 51);
     --trp-bg: rgba(11, 12, 16, 0.25);
     --ink: #e9edf1;
     --dim: #a9b1bb;
@@ -605,31 +605,32 @@ a span {
 }
 
 .tooltiptext {
-  visibility: hidden; 
-  width: 100%;
-  background-color: var(--bg-comp2);
-  color: #ffffff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-  position: absolute;
-  bottom: 105%; 
-  /* transform: translateY(-125%); */
-  z-index: 999; 
-  border: solid 1px var(--glorange);
+    visibility: hidden;
+    width: 100%;
+    background-color: var(--bg-comp2);
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 105%;
+    /* transform: translateY(-125%); */
+    z-index: 999;
+    border: solid 1px var(--glorange);
 }
 
 .tooltiptext::after {
-    content: ""; 
+    content: "";
     position: absolute;
-    top: 100%; 
+    top: 100%;
     left: 50%;
-    margin-left: -6px; 
-    border-width: 6px; 
+    margin-left: -6px;
+    border-width: 6px;
     border-style: solid;
 
     border-color: var(--glorange) transparent transparent transparent;
 }
+
 .card:hover {
     border-color: var(--glorange);
     box-shadow: 0 0 18px rgba(255, 181, 74, 0.25);
@@ -637,7 +638,7 @@ a span {
 }
 
 .card:hover .tooltiptext {
-  visibility: visible;
+    visibility: visible;
 }
 
 .card img {
@@ -1445,7 +1446,7 @@ h4 {
     flex-wrap: wrap;
     margin-top: 20px;
     background-image: linear-gradient(to right, rgba(155, 155, 155, .08) 10%, rgba(155, 155, 155, 0));
-    
+
     border-left: 2px solid var(--card-img-border);
     margin-left: 50px;
     margin-right: 50px;
@@ -1539,7 +1540,7 @@ h4 {
 #history-content .order-item::after {
     content: "";
     width: 20px;
-    margin-right:calc(100% - 20px);
+    margin-right: calc(100% - 20px);
     transform: translateY(-38px) translateX(-52px);
     border-bottom: 1px solid var(--card-img-border);
 }
@@ -1584,15 +1585,31 @@ input[type="number"] {
     box-sizing: border-box;
 }
 
-.checkout-content {
-
-}
+.checkout-content {}
 
 .checkout-inner {
     size: 200%;
     background: var(--trp-bg);
     backdrop-filter: blur(6px) saturate(200%);
     -webkit-backdrop-filter: blur(6px) saturate(200%);
+}
+
+.checkout-item {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.co-main {
+    width: calc(70% - 80px);
+    margin-left: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.co-main .ci-name {
+    min-width: 240px;
 }
 
 html::-webkit-scrollbar {
