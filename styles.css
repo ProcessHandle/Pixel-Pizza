@@ -1576,11 +1576,23 @@ input[type="number"] {
 #about-content,
 #history-content,
 #sales-data-content,
+#checkout-content,
 .sub {
     height: 100%;
     margin-right: 260px;
     padding: 0 60px 80px;
     box-sizing: border-box;
+}
+
+.checkout-content {
+
+}
+
+.checkout-inner {
+    size: 200%;
+    background: var(--trp-bg);
+    backdrop-filter: blur(6px) saturate(200%);
+    -webkit-backdrop-filter: blur(6px) saturate(200%);
 }
 
 html::-webkit-scrollbar {

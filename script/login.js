@@ -46,6 +46,7 @@ let currentTotal = 0
 let orderHistory = document.getElementById("nav-history")
 let animationLength = 250;
 let startHeight = 0;
+let doFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }); // This is super cool!
 let accountStorage = () => JSON.parse(localStorage.getItem("Accounts") || "{}")
 let saveStorage = o => localStorage.setItem("Accounts", JSON.stringify(o))
 let currentUser
@@ -82,7 +83,7 @@ function updCartTotal() {
     });
 
     currentTotal = tot;
-    cartTotal.innerText = `$${tot.toFixed(2)}`;
+    cartTotal.innerText = doFormat.format(tot);
 }
 
 
@@ -285,7 +286,7 @@ function loginUser(email, password) {
     let hashed = letshash(password);
     if (guestCart.length >= 1) {
         if (confirm("Logging will result in your cart being cleared or overwritten. Would you like to continue?")) { 
-
+            guestCart = []
         } else {
             return
         }
