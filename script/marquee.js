@@ -1,3 +1,12 @@
+const MarqueeItemsLoaded = new CustomEvent("MarqueeItemsLoaded", {
+  detail: {
+    message: "Marquee itmes have been loaded",
+    timestamp: new Date().toISOString()
+  },
+  bubbles: true,
+  cancelable: true
+});
+
 document.addEventListener("MenuItemsLoaded", (event) => {
     console.log(event.detail.message)
     let mTrack = document.getElementById("marquee-track");
@@ -23,4 +32,5 @@ document.addEventListener("MenuItemsLoaded", (event) => {
             mTrack.appendChild(duplicateCard);
         }
     }
+    document.dispatchEvent(MarqueeItemsLoaded);
 })
