@@ -334,10 +334,98 @@
     <div id="checkout-content" class="hidden">
         <h1 class="title">Checkout & Place Order</h1>
         <div id="checkout-inner">
-
-            <div id="checkout-items">
+          <div id="checkout-items">
 
             </div>
+            <div id="payment-container">
+
+
+                <div class="payment-split">
+                    <div class="payment-row">
+                        <label>First Name</label>
+                        <input type="text" id="first-name" placeholder="John">
+                    </div>
+
+                    <div class="payment-row">
+                        <label>Last Name</label>
+                        <input type="text" placeholder="Doe">
+                    </div>
+                </div>
+
+                <div class="payment-row">
+                    <label>Address</label>
+                    <input type="text" id="address" placeholder="Address">
+                </div>
+
+                <div class="payment-split">
+                    <div class="payment-row">
+                        <label>City</label>
+                        <input type="text" id="city" placeholder="City">
+                    </div>
+
+                    <div class="payment-row">
+                        <label>State</label>
+                        <input type="text" placeholder="State">
+                    </div>
+
+                    <div class="payment-row">
+                        <label>Zip Code</label>
+                        <input type="number" placeholder="12345">
+                    </div>
+                </div>
+
+                <div class="payment-row">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone-number" placeholder="(123) 345-6789">
+                </div>
+
+                <div class="payment-logos">
+                    <img class="grayout" src="images/visa-icon.png" alt="Visa">
+                    <img class="grayout" src="images/mastercard-icon.png" alt="MasterCard">
+                    <img class="grayout" src="images/paypal-icon.png" alt="PayPal">
+                    <img class="grayout" src="images/cash-icon.png" alt="Cash">
+                </div>
+                
+                <div id="card-area" class="hidden">
+                    <div class="payment-row">
+                        <label>CARDHOLDER NAME</label>
+                        <input type="text" id="carholder-name" placeholder="John Doe">
+                    </div>
+
+                    <div class="payment-row">
+                        <label>CARD NUMBER</label>
+                        <input type="tel" id="card-number" placeholder="••••  ••••  ••••  1234">
+                    </div>
+
+                    <div class="payment-split">
+                        <div class="payment-row">
+                            <label>EXP DATE</label>
+                            <input type="number" id="expire-date" placeholder="07/2026">
+                        </div>
+
+                        <div class="payment-row">
+                            <label>CVC</label>
+                            <input type="number" placeholder="•••">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="paypal-area" class="hidden">
+                    <div class="payment-row">
+                        <label>Email</label>
+                        <input type="text" id="paypal-email" placeholder="Email">
+                    </div>
+
+                    <div class="payment-row">
+                        <label>Password</label>
+                        <input type="number" id="card-number" placeholder="Password">
+                    </div>
+                </div>
+                <button id="pay-btn">PAY NOW</button>
+            </div>
+
+
+           
         </div>
     </div>
     <div id="sales-data-content" class="hidden">
