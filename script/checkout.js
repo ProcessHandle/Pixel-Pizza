@@ -114,5 +114,16 @@ function submitOrder() {
         checkoutElements.fieldError.classList.add("hidden");
     }
 
-    
+    if(currentUser)
+    {
+        if(currentUser.history !== undefined)
+        {
+            currentUser.history.push(getCartItems());
+        }
+        else
+        {
+            currentUser.history = [getCartItems()];
+        }
+    }
+
 }
