@@ -114,16 +114,37 @@ function submitOrder() {
         checkoutElements.fieldError.classList.add("hidden");
     }
 
+    console.log(getCartItems());
+
+    let order = {
+        date: new Date().toLocaleDateString(),
+        items: getCartItems()
+    }
+
     if(currentUser)
     {
         if(currentUser.history !== undefined)
         {
-            currentUser.history.push(getCartItems());
+            currentUser.history.push(order);
         }
         else
         {
-            currentUser.history = [getCartItems()];
+            currentUser.history = [order];
         }
+
+        let accounts = accountStorage();
+
+        updCartItems("clear");
+        accounts[currentUser.email].history = currentUser.history;
+        saveStorage(accounts);
+
+        checkoutFields.forEach(item => {
+            item.value = "";
+        })
+
+        loadOrderHistory();
+        renderCart();
+
     }
 
 }

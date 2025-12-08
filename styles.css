@@ -1697,6 +1697,14 @@ input[type="number"] {
     justify-content: center;
 }
 
+.history-item-name {
+    width: 220px;
+}
+
+.history-item-total {
+    width: 100px;
+}
+
 .co-main {
     width: calc(70% - 80px);
     margin-left: 30px;
