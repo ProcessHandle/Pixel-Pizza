@@ -191,5 +191,10 @@ function startMenuItemEvents() {
   });
 }
 
+function getPrice(name) {
+    const item = menuItems.find(m => m.title === name);
+    return item ? Number(item.price) : 0;
+}
+
 
 loadMenu();

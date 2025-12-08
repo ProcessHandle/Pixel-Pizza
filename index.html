@@ -282,59 +282,15 @@
     <div id="history-content" class="hidden">
         <h1 class="title">Order History</h1>
         <h2>Past Orders:</h2>
-        <div class="order">
-            <img src="https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png"
-                alt="pizza">
-            <div class="order-info">
-                <div class="order-info-grid">
-                    <p>Date: <span>8/12/25</span></p>
-                    <p>Total: <span>$123.23</span></p>
-                    <p>Quantity: <span>6</span></p>
-                    <button>Order Again</button>
-                </div>
-            </div>
-            <div class="show-details">
-                <a>Show Details</a>
-            </div>
-        </div>
-
-        <div class="order">
-            <img src="https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png"
-                alt="pizza">
-            <div class="order-info">
-                <div class="order-info-grid">
-                    <p>Date: <span>8/12/25</span></p>
-                    <p>Total: <span>$123.23</span></p>
-                    <p>Quantity: <span>6</span></p>
-                    <button>Order Again</button>
-                </div>
-            </div>
-            <div class="order-details collapsed">
-                <div class="order-item">
-                    <img src="https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png"
-                        alt="pizza">
-                    <p>Quantity: <span>6</span></p>
-                    <p>Price: <span>$50</span></p>
-                    <p>Total Price: <span>$259</span></p>
-                </div>
-                <div class="order-item">
-                    <img src="https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png"
-                        alt="pizza">
-                    <p>Quantity: <span>6</span></p>
-                    <p>Price: <span>$50</span></p>
-                    <p>Total Price: <span>$259</span></p>
-                </div>
-            </div>
-            <div class="show-details">
-                <a onclick="expandOrderHistory(this)">Show Details</a>
-            </div>
-        </div>
+        <div id="history-list"></div>
+    </div>
+    </div>
 
     </div>
     <div id="checkout-content" class="hidden">
         <h1 class="title">Checkout & Place Order</h1>
         <div id="checkout-inner">
-          <div id="checkout-items">
+            <div id="checkout-items">
 
             </div>
             <div id="payment-container">
@@ -385,7 +341,7 @@
                     <img class="grayout" src="images/paypal-icon.png" alt="PayPal">
                     <img class="grayout" src="images/cash-icon.png" alt="Cash">
                 </div>
-                
+
                 <div id="card-area" class="hidden">
                     <div class="payment-row">
                         <label>CARDHOLDER NAME</label>
@@ -425,7 +381,7 @@
             </div>
 
 
-           
+
         </div>
     </div>
     <div id="sales-data-content" class="hidden">
