@@ -41,6 +41,7 @@ let loginMessage = document.getElementById("login-msg")
 let editMenu = document.getElementById("nav-edit")
 let saleData = document.getElementById("nav-sales")
 let cartItems = document.getElementById("cart-items")
+let checkoutItems = document.getElementById("checkout-items")
 let cartTotal = document.getElementById("cart-total")
 let currentTotal = 0
 let orderHistory = document.getElementById("nav-history")
@@ -148,6 +149,7 @@ function getCartItems() {
 function renderCart() {
     let list = getCartItems()
     cartItems.innerHTML = ""
+    checkoutItems.innerHTML = ""
 
     if (list.length === 0) {
         return
@@ -180,20 +182,43 @@ function renderCart() {
         `;
 
         cartItems.appendChild(div)
+
+        //update checkout:
+        checkoutElement = div.cloneNode(true);
+        checkoutElement.className = "checkout-item";
+        checkoutElement.innerHTML =
+            `
+            <div class="thumb">
+                <img src="${e.img || 'https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png'}" alt="Item">
+            </div>
+            <div class="co-main">
+                <span class="ci-name">${e.item}</span>
+                <span class="ci-price-line">$${Number(e.price).toFixed(2)}</span>
+                <div class="qty">
+                    <button class="qbtn minus">−</button>
+                    <input class="qval" type="number" min="1" value="${e.qty || 1}">
+                    <button class="qbtn plus">+</button>
+                </div>
+                <button class="ci-remove">✕</button>
+            </div>`
+
+        checkoutItems.appendChild(checkoutElement);
+
     });
+
     updCartTotal()
     startCartItemEvents()
 }
 
 
 function uiUpdate(isAdmin) {
-    
+
     if (!isAdmin) {
-        viewingPermissions.admin.forEach(item => {item.classList.add("hidden")});
-        viewingPermissions.user.forEach(item => {item.classList.remove("hidden")});
+        viewingPermissions.admin.forEach(item => { item.classList.add("hidden") });
+        viewingPermissions.user.forEach(item => { item.classList.remove("hidden") });
     } else {
-        viewingPermissions.admin.forEach(item => {item.classList.remove("hidden")});
-        viewingPermissions.user.forEach(item => {item.classList.add("hidden")});
+        viewingPermissions.admin.forEach(item => { item.classList.remove("hidden") });
+        viewingPermissions.user.forEach(item => { item.classList.add("hidden") });
     }
 
     if (currentUser) {
@@ -285,7 +310,7 @@ function loginUser(email, password) {
 
     let hashed = letshash(password);
     if (guestCart.length >= 1) {
-        if (confirm("Logging will result in your cart being cleared or overwritten. Would you like to continue?")) { 
+        if (confirm("Logging will result in your cart being cleared or overwritten. Would you like to continue?")) {
             guestCart = []
         } else {
             return
