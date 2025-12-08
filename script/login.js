@@ -423,7 +423,9 @@ function login() {
                     currentUser = {
                         email: regEmail,
                         name: loginRes.Name,
-                        isAdmin: loginRes.isAdmin
+                        isAdmin: loginRes.isAdmin,
+                        cart: [],
+                        history: []
                     };
                     uiUpdate(currentUser.isAdmin);
                     statusMessage(`Welcome ${loginRes.Name}!`, 2000);
