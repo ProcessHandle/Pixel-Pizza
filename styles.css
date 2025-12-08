@@ -488,7 +488,9 @@ a span {
 }
 
 #top-product-container {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-large::before {
@@ -1542,6 +1544,101 @@ h4 {
     margin-right:calc(100% - 20px);
     transform: translateY(-38px) translateX(-52px);
     border-bottom: 1px solid var(--card-img-border);
+}
+
+#payment-container {
+    background: var(--trp-bg);
+    border: 1px solid var(--glorange);
+    padding: 28px;
+    border-radius: 14px;
+    max-width: 420px;
+    margin: 40px auto;
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    box-shadow: 0 0 18px rgba(255, 181, 74, 0.15);
+}
+
+.payment-logos {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 26px;
+  align-items: center; 
+  justify-content: center; 
+}
+
+.payment-logos img {
+    height: 34px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 4px rgba(255, 181, 74, .35));
+    transition: ease 0.20s;
+}
+
+.payment-logos img:hover {
+    cursor: pointer;
+    filter: none;
+    opacity: 1;
+
+}
+
+.payment-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.payment-row label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--dim);
+    margin-bottom: 6px;
+}
+
+.payment-row input {
+    background: var(--bg-comp);
+    border: 1px solid var(--checkout-bord);
+    color: var(--glorange);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.payment-row input::placeholder {
+    color: var(--checkout-bord);
+}
+
+.payment-split {
+    display: flex;
+    gap: 20px;
+}
+
+.payment-split .payment-row {
+    flex: 1;     
+    min-width: 0; 
+}
+
+#pay-btn {
+    width: 100%;
+    background: var(--btn-bg);
+    border: 1px solid var(--checkout-bord);
+    color: var(--glorange);
+    padding: 14px 0;
+    margin-top: 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .25s ease;
+    font-family: "Press Start 2P";
+}
+
+#pay-btn:hover {
+    background: var(--btn-bg-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(255, 181, 74, 0.25);
+}
+
+.grayout {
+    filter: brightness(0) invert(70%);
+    opacity: 0.6; 
 }
 
 input::-webkit-outer-spin-button,
