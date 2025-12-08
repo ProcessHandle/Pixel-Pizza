@@ -304,7 +304,7 @@
 
                     <div class="payment-row">
                         <label>Last Name</label>
-                        <input type="text" placeholder="Doe">
+                        <input type="text" id="last-name" placeholder="Doe">
                     </div>
                 </div>
 
@@ -321,12 +321,12 @@
 
                     <div class="payment-row">
                         <label>State</label>
-                        <input type="text" placeholder="State">
+                        <input type="text" id="state" placeholder="State">
                     </div>
 
                     <div class="payment-row">
                         <label>Zip Code</label>
-                        <input type="number" placeholder="12345">
+                        <input type="number" id="zipcode" placeholder="12345">
                     </div>
                 </div>
 
@@ -336,16 +336,16 @@
                 </div>
 
                 <div class="payment-logos">
-                    <img class="grayout" src="images/visa-icon.png" alt="Visa">
-                    <img class="grayout" src="images/mastercard-icon.png" alt="MasterCard">
-                    <img class="grayout" src="images/paypal-icon.png" alt="PayPal">
-                    <img class="grayout" src="images/cash-icon.png" alt="Cash">
+                    <img class="grayout" onclick="changePmtType(this)" id="visa-logo" src="images/visa-icon.png" alt="Visa">
+                    <img class="grayout" onclick="changePmtType(this)" id="mastercard-logo" src="images/mastercard-icon.png" alt="MasterCard">
+                    <img class="grayout" onclick="changePmtType(this)" id="paypal-logo" src="images/paypal-icon.png" alt="PayPal">
+                    <img class="grayout" onclick="changePmtType(this)" id="cash-logo" src="images/cash-icon.png" alt="Cash">
                 </div>
 
                 <div id="card-area" class="hidden">
                     <div class="payment-row">
                         <label>CARDHOLDER NAME</label>
-                        <input type="text" id="carholder-name" placeholder="John Doe">
+                        <input type="text" id="cardholder-name" placeholder="John Doe">
                     </div>
 
                     <div class="payment-row">
@@ -361,7 +361,7 @@
 
                         <div class="payment-row">
                             <label>CVC</label>
-                            <input type="number" placeholder="•••">
+                            <input type="number" id="card-cvc" placeholder="•••">
                         </div>
                     </div>
                 </div>
@@ -374,10 +374,16 @@
 
                     <div class="payment-row">
                         <label>Password</label>
-                        <input type="number" id="card-number" placeholder="Password">
+                        <input type="number" id="paypal-password" placeholder="Password">
                     </div>
                 </div>
-                <button id="pay-btn">PAY NOW</button>
+                <div class="hidden" id="payment-type-error">
+                    <p>Please select a payment type.</p>
+                </div>
+                <div class="hidden" id="payment-error">
+                    <p>Please make sure all fields are filled out.</p>
+                </div>
+                <button id="pay-btn" onclick="submitOrder()">Submit Order</button>
             </div>
 
 
@@ -427,5 +433,6 @@
 <script src="script/history.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script/salesdata.js"></script>
+<script src="script/checkout.js"></script>
 
 </html>
