@@ -78,27 +78,22 @@ function loadOrderHistory() {
     container.innerHTML = "";
 
     history.forEach(order => {
-        let date = order[0];
-        let items = order.slice(1); 
+        let date = order.date;
+        let items = order.items;
 
         let totalQty = 0;
         let totalCost = 0;
 
         items.forEach(i => {
-            let name = i[0];
-            let qty = i[1];
-            let price = getPrice(name);
-            totalQty += qty;
-            totalCost += qty * price;
+            totalQty += i.qty;
+            totalCost += i.qty * i.price;
         });
-
-         date = new Date(date).toLocaleDateString();
 
         let orderDiv = document.createElement("div");
         orderDiv.className = "order";
         
-        let firstItemName = items[0][0];
-        let firstItemImg = getImage(firstItemName);
+        let firstItemName = items[0].name;
+        let firstItemImg = items[0].img;
 
         let img = document.createElement("img");
         img.src = firstItemImg;
@@ -122,21 +117,21 @@ function loadOrderHistory() {
         detailsDiv.className = "order-details collapsed";
 
         items.forEach(i => {
-            let name = i[0];
-            let qty = i[1];
-            let price = getPrice(name);
-            let imgSrc = getImage(name);
-            let itemTotal = price * qty;
+            let name = i.item;
+            let qty = i.qty;
+            let price = i.price;
+            let imgSrc = i.img;
+            let itemTotal = i.price * i.qty;
 
             let itemDiv = document.createElement("div");
             itemDiv.className = "order-item";
 
             itemDiv.innerHTML = `
                 <img src="${imgSrc}" alt="${name}">
-                <p>Item: <span>${name}</span></p>
+                <p class="history-item-name"><span>${name}</span></p>
                 <p>Quantity: <span>${qty}</span></p>
                 <p>Price: <span>$${price}</span></p>
-                <p>Total Price: <span>$${itemTotal.toFixed(2)}</span></p>
+                <p class="history-item-total">Total Price: <span>$${itemTotal.toFixed(2)}</span></p>
             `;
 
             detailsDiv.appendChild(itemDiv);

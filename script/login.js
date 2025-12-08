@@ -244,7 +244,8 @@ function uiUpdate(isAdmin) {
     }
 
     if (currentUser) {
-        renderCart()
+        renderCart();
+        loadOrderHistory();
     } else if (cartItems) {
         cartItems.innerHTML = "";
     }
@@ -288,8 +289,12 @@ function letshash(p) {
 function loginUser(email, password) {
     let store = accountStorage();
     let admin = store.isAdmin || false
-    email = email.toLowerCase()
-    let history = store[email].history || [];
+    email = email.toLowerCase();
+    let history = [];
+    if(store[email] !== undefined)
+    {
+        history = store[email].history;
+    }
     console.log(`Email: ${email} , Pass: ${password}`)
     if (email === "test" && password === "test") {
         let acc = accountStorage();
