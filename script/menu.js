@@ -113,7 +113,7 @@ function reloadMenu() {
   menuElements.forEach(element => { element.remove() });
   loadMenu();
 }
-document.addEventListener("MenuItemsLoaded", () => {
+document.addEventListener("MarqueeItemsLoaded", () => {
   loadAtcButtons();
   startMenuItemEvents();
 });
