@@ -22,16 +22,16 @@ function orderAgain(i) {
     let order = currentUser.history[i];
     if (!order) return;
 
-    let items = order.slice(1);
+    let items = order.items;
 
     items.forEach(i => {
-        let name = i[0];
+        let name = i.item;
 
         updCartItems("add", {
             item: name,
-            price: getPrice(name),
-            img: getImage(name),
-            qty: i[1]
+            price: i.price,
+            img: i.img,
+            qty: i.qty
         });
     });
 
