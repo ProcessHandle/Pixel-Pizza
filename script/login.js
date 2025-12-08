@@ -59,12 +59,19 @@ let viewingPermissions = {
     user: [orderHistory]
 }
 
-function getOrderHistory() {
-    return currentUser.history ? currentUser.history : {};
-}
+function updateCurrentUser(data) {
+    let accs = accountStorage()
 
-function updOrderHistory(obj) {
-    currentUser.history = obj;
+    if (!currentUser || !currentUser.email) return;
+
+    Object.assign(currentUser, data)
+
+    accs[currentUser.email] = {
+        ...accs[currentUser.email],
+        ...currentUser
+    };
+
+    saveStorage(accs);
 }
 
 function updCartTotal() {
@@ -282,6 +289,7 @@ function loginUser(email, password) {
     let store = accountStorage();
     let admin = store.isAdmin || false
     email = email.toLowerCase()
+    let history = store[email].history || [];
     console.log(`Email: ${email} , Pass: ${password}`)
     if (email === "test" && password === "test") {
         let acc = accountStorage();
@@ -324,7 +332,7 @@ function loginUser(email, password) {
     if (admin) { }
     let cart = store[email].cart || [];
 
-    return { status_ok: true, isAdmin: admin, Name: store[email].name, cart: cart };
+    return { status_ok: true, isAdmin: admin, Name: store[email].name, cart: cart, history: history};
 }
 
 function createAccount(name, email, pass) {
@@ -342,7 +350,8 @@ function createAccount(name, email, pass) {
         name: name,
         created: Date.now(),
         isAdmin: false,
-        cart: []
+        cart: [], 
+        history: []
     };
 
     saveStorage(store);
@@ -380,6 +389,7 @@ function login() {
                 history: res.history
             };
             uiUpdate(currentUser.isAdmin);
+            loadOrderHistory()
         } else {
             statusMessage(res.msg, 3000)
         }
