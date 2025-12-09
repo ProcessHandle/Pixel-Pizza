@@ -1,3 +1,3 @@
-Authors:
-Steve Ingram
+Authors: \br
+Steve Ingram \br
 Mike Brenneman
