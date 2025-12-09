@@ -373,6 +373,7 @@ function handleLogInOut() {
         uiUpdate(false);
         updCartTotal();
         statusMessage("Logged out successfully", 2000);
+        navigate(navLinks.home);
     } else {
         login();
     }
@@ -479,11 +480,15 @@ function toggleRegister() {
         console.log("show login, hide register");
         loginContainer.classList.remove("hidden");
         registerContainer.classList.add("hidden");
+        document.getElementById("register-link").innerHTML = `<a onclick="toggleRegister()">New Player? <span>Create Account.</span></a>`
+        document.getElementById("login-out-btn").innerText = "Login"
     }
     else {
         console.log("hide login, show register")
         loginContainer.classList.add("hidden");
         registerContainer.classList.remove("hidden");
+        document.getElementById("register-link").innerHTML = `<a onclick="toggleRegister()">Returning Player? <span>Log In.</span></a>`
+        document.getElementById("login-out-btn").innerText = "Register"
     }
     animateHeight();
 }
