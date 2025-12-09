@@ -133,12 +133,14 @@ function updCartItems(action, data = {}) {
             break;
 
         case "clear":
+            console.log("clear cart")
             cart = [];
             cartTotal.innerText = `$0.00`
             currentTotal = 0
             break;
     }
     if (loggedIn) {
+        console.log("logged in");
         let accounts = accountStorage();
         accounts[currentUser.email].cart = cart;
         saveStorage(accounts);
