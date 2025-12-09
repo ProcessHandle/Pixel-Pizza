@@ -134,9 +134,13 @@ function submitOrder() {
 
         let accounts = accountStorage();
 
-        updCartItems("clear");
+
+        currentUser.cart = [];
+        accounts[currentUser.email].cart = currentUser.cart;
         accounts[currentUser.email].history = currentUser.history;
         saveStorage(accounts);
+
+        checkoutItems.innerHTML = `<h2>Order has been submitted</h2>`
 
         checkoutFields.forEach(item => {
             item.value = "";
