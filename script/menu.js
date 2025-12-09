@@ -86,7 +86,7 @@ function loadMenu() {
     let storedMenu = localStorage.getItem(storageMenuName);
     if (storedMenu) {
       JSON.parse(storedMenu).forEach(item => {
-        menuItems.push(new MenuItem(item.title, item.image, item.price, item.description, item.topProduct, item.promoted));
+        menuItems.push(new MenuItem(item.title, item.imgUrl, item.price, item.description, item.topProduct, item.promoted, item.sales));
         console.log(item);
       })
     }
@@ -100,6 +100,7 @@ function loadMenu() {
 }
 
 function storeMenu() {
+  checkTopProduct();
   let newMenu = JSON.stringify(menuItems);
   localStorage.setItem(storageMenuName, newMenu);
 }
@@ -113,6 +114,22 @@ function reloadMenu() {
   menuElements.forEach(element => { element.remove() });
   loadMenu();
 }
+
+function checkTopProduct() {
+  let max = 0;
+  let topIndex = 0;
+  for(let i = 0; i < menuItems.length; i++)
+  {
+    menuItems[i].topProduct = false;
+    if(menuItems[i].sales > max)
+    {
+      max = menuItems[i].sales;
+      topIndex = i;
+    }
+  }
+  menuItems[topIndex].topProduct = true;
+}
+
 document.addEventListener("MarqueeItemsLoaded", () => {
   loadAtcButtons();
   startMenuItemEvents();
