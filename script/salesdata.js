@@ -83,16 +83,18 @@ function mkSalesGrid() {
     if (!window.salesData) return;
 
     Object.entries(salesData).forEach(([name, count]) => {
-        saleItemCard(name, count)
+        const item = menuItems.find(m => m.title === name);
+        const imgUrl = item ? item.imgUrl : "https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png";
+        saleItemCard(name, count, imgUrl)
     });
 }
 
-function saleItemCard(name, count) {
+function saleItemCard(name, count, img) {
     let el = document.createElement("div")
     el.classList.add("sales-item-card")
 
     el.innerHTML = `
-        <img src="https://www.nicepng.com/png/full/340-3400354_pizza-pixel-pixels-pixeles-tumblr-food-pixel-pizza.png">
+        <img src="${img}">
         <div class="sales-item-name">${name}</div>
         <div class="sales-item-count">${count} Sold</div>
     `;

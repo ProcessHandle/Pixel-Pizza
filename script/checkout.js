@@ -1,6 +1,8 @@
 let checkoutElements = {
     firstName: document.getElementById("first-name"),
     lastName: document.getElementById("last-name"),
+    phone: document.getElementById("phone-number"),
+
 
     address: {
         street: document.getElementById("address"),
@@ -61,6 +63,11 @@ function submitOrder() {
     let checkoutFields = [
         checkoutElements.firstName,
         checkoutElements.lastName,
+        checkoutElements.phone,
+        checkoutElements.address.street,
+        checkoutElements.address.city,
+        checkoutElements.address.state,
+        checkoutElements.address.zip
     ]
 
     if(!checkoutElements.card.container.classList.contains("hidden"))
@@ -125,7 +132,7 @@ function submitOrder() {
     {
         if(currentUser.history !== undefined)
         {
-            currentUser.history.push(order);
+            currentUser.history.unshift(order);
         }
         else
         {
@@ -134,21 +141,47 @@ function submitOrder() {
 
         let accounts = accountStorage();
 
+        updateSalesHistory(currentUser.cart);
 
         currentUser.cart = [];
+        currentTotal = 0;
         accounts[currentUser.email].cart = currentUser.cart;
         accounts[currentUser.email].history = currentUser.history;
         saveStorage(accounts);
 
-        checkoutFields.forEach(item => {
-            item.value = "";
-        })
-
         loadOrderHistory();
-        renderCart();
-
-        checkoutItems.innerHTML = `<h2>Order has been submitted</h2>`
 
     }
+    else
+    {
+        updateSalesHistory(guestCart);
+        guestCart = [];
+        currentTotal = 0;
+    }
 
+    checkoutFields.forEach(item => {
+        item.value = "";
+    })
+
+    renderCart();
+
+    updCartTotal();
+
+    checkoutItems.innerHTML = `<h2 style="text-align: center;">Order has been submitted</h2>`
+
+}
+
+function updateSalesHistory(cart)
+{
+    cart.forEach(item => {
+        menuItems.forEach(menuItem => {
+            if(menuItem.title === item.item)
+            {
+                menuItem.sales += item.qty;
+            }
+        })
+    }
+    )
+    storeMenu();
+    reloadMenu();
 }
