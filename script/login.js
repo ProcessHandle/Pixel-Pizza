@@ -327,6 +327,7 @@ function loginUser(email, password) {
     if (guestCart.length >= 1) {
         if (confirm("Logging will result in your cart being cleared or overwritten. Would you like to continue?")) {
             guestCart = []
+            updCartTotal() 
         } else {
             return
         }
